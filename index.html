@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -18,31 +17,42 @@
     body {
       margin: 0;
       padding: 0;
+      padding-top: 160px; /* 100px header + ~60px nav spacing */
       background-color: #f4f4f9;
       overflow-x: hidden;
     }
 
-    header {
+header {
   background-color: #006400;
   color: white;
-  padding: 1em;
+  padding: 1em 0;
   text-align: center;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
+  height: 100px; /* adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-    nav {
+nav {
   background-color: #228B22;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   padding: 0.5em;
-  position: sticky;
-  top: 64px; /* below header */
+  position: fixed;
+  top: 100px; /* match header height */
+  left: 0;
+  width: 100%;
   z-index: 999;
 }
+
+
 
     nav a,
 .nav-current {
@@ -158,6 +168,10 @@ nav a:hover {
 }
 
 /* Initially hidden */
+/* Initial state: hidden */
+
+
+/* Text overlay styles */
 .hover-text {
   position: absolute;
   top: 50%;
@@ -168,17 +182,31 @@ nav a:hover {
   font-weight: bold;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.6s ease;
   background-color: rgba(0, 100, 0, 0.8);
   padding: 10px 20px;
   border-radius: 10px;
 }
 
 /* Show on hover (desktop) */
-.image-hover-wrapper:hover .hover-text,
-.image-hover-wrapper.active .hover-text {
+.image-hover-wrapper:hover .hover-text {
   opacity: 1;
 }
+
+/* Show when scrolled into view */
+.image-hover-wrapper.scroll-visible .hover-text {
+  opacity: 1;
+}
+
+/* Hide after timeout */
+.image-hover-wrapper .hover-text.fade-out {
+  opacity: 0;
+}
+
+
+
+
+
 
 /* Hover effect: zoom image and show text */
 .image-hover-wrapper:hover img {
@@ -253,6 +281,7 @@ img {
   }
 }
 
+
 @media (max-width: 480px) {
   h2 {
     font-size: 1.2em;
@@ -263,6 +292,75 @@ img {
   }
 }
 
+
+/* Hamburger styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: content-box;
+  margin-left: 10px;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+}
+
+/* Show hamburger only on small screens */
+@media (max-width: 768px) {
+  nav {
+    position: fixed; /* keep sticky/fixed if you want */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5em 1em;
+    height: auto;
+    gap: 0;
+  }
+
+  nav a, nav .nav-current {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Hide links by default on mobile */
+  nav:not(.open) a,
+  nav:not(.open) .nav-current {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+
   </style>
 
 </head>
@@ -272,11 +370,18 @@ img {
   </header>
 
   <nav>
-    <span class="nav-current">الرئيسية</span>
-    <a href="12th.html" target="_blank">الصف الثاني عشر</a>
-    <a href="11th.html" target="_blank">الصف الحادي عشر</a>
-    <a href="10th.html" target="_blank">الصف العاشر</a>
-  </nav>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <span class="nav-current">الرئيسية</span>
+  <a href="12th.html" target="_blank">الصف الثاني عشر</a>
+  <a href="11th.html" target="_blank">الصف الحادي عشر</a>
+  <a href="10th.html" target="_blank">الصف العاشر</a>
+</nav>
+
 
   <div class="section-card">
   <!-- Left side: Image -->
@@ -369,6 +474,50 @@ img {
 
     cards.forEach(card => observer.observe(card));
   });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hoverWrappers = document.querySelectorAll('.image-hover-wrapper');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const wrapper = entry.target;
+          const overlay = wrapper.querySelector('.hover-text');
+
+          wrapper.classList.add('scroll-visible');
+
+          // Remove any previous fade-out
+          overlay.classList.remove('fade-out');
+
+          // Start timer to fade out
+          setTimeout(() => {
+            overlay.classList.add('fade-out');
+          }, 1000); // 1000ms = 1 seconds
+
+          observer.unobserve(wrapper); // optional: animate once
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    hoverWrappers.forEach(wrapper => {
+      observer.observe(wrapper);
+    });
+  });
+
+const nav = document.querySelector('nav');
+  const hamburger = document.querySelector('.hamburger');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+
+    // Update aria-expanded for accessibility
+    const expanded = hamburger.classList.contains('active');
+    hamburger.setAttribute('aria-expanded', expanded);
+  });
+
 </script>
 
 
