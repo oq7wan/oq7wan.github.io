@@ -1,0 +1,557 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> اختبار مستوى </title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <style>
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif; 
+    }
+   
+    body {
+      margin: 0;
+      padding: 0;
+      padding-top: 160px; /* 100px header + ~60px nav spacing */
+      background-color: #f4f4f9;
+      overflow-x: hidden;
+    }
+
+
+    header {
+  background-color: #006400;
+  color: white;
+  padding: 1em 0;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 100px; /* adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  background-color: #228B22;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0.5em;
+  position: fixed;
+  top: 100px; /* match header height */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+
+
+    nav a,
+.nav-current {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: #006400;
+}
+
+.nav-current {
+  background-color: #006400;
+  color: #ccc;
+  cursor: default;
+}
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2em;
+    }
+
+.header-text {
+  background-color: #006400;
+  color: white;
+  text-align: center;
+  padding: 20px 40px;
+  border-radius: 16px;
+  margin: 0 auto;   /* keeps it centered */
+  width: 90%;       /* take 90 % of the card’s width */
+  max-width: none;  /* override the old fit‑content limit */
+}
+
+
+
+#loginSection {
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+
+    .section-card {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 40px auto;
+    }
+    .text-side {
+      flex: 1;
+      text-align: right;
+    }
+    .image-side {
+      flex: 1;
+      text-align: center;
+    }
+    .image-side img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+    .timer {
+      font-size: 22px;
+      color: #c0392b;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+      display: none;
+    }
+
+.question p {
+  font-size: 1.3rem;  /* Question text size */
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.question label {
+  font-size: 1.1rem;  /* Choices text size */
+  margin-bottom: 10px;
+  display: block;
+  cursor: pointer;
+}
+
+.feedback {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+
+    .question.active {
+      display: block;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    button {
+      background-color: #006400;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+    .feedback {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #fdfefe;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .correct { color: green; font-weight: bold; }
+    .incorrect { color: red; font-weight: bold; }
+
+/* Hamburger styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: content-box;
+  margin-left: 10px;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+}
+
+/* Show hamburger only on small screens */
+@media (max-width: 768px) {
+  nav {
+    position: fixed; /* keep sticky/fixed if you want */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5em 1em;
+    height: auto;
+    gap: 0;
+  }
+
+  nav a, nav .nav-current {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Hide links by default on mobile */
+  nav:not(.open) a,
+  nav:not(.open) .nav-current {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+.site-footer {
+  background-color: #006400;
+  color: white;
+  text-align: center;
+  padding: 30px 10px;
+  font-size: 14px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo img.dna-icon {
+  width: 60px;
+  height: 60px;
+  animation: rotateDNA 5s linear infinite;
+}
+
+/* cat rotation animation */
+@keyframes rotateDNA {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Scroll-to-top button */
+.scroll-top {
+  margin-top: 10px;
+  background-color: #228B22;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-top:hover {
+  background-color: #004d00;
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>منصة علم الأحياء</h1>
+</header>
+
+<nav>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <span class="nav-current"> اختبار مستوى </span>
+  <a href="index.html" target="_blank"> الرئيسية </a>
+  <a href="12th.html" target="_blank">الصف الثاني عشر</a>
+  <a href="11th.html" target="_blank">الصف الحادي عشر</a>
+  <a href="10th.html" target="_blank">الصف العاشر</a>
+</nav>
+
+<div id="loginSection" class="section-card">
+  <div class="text-side">
+    <h2>تسجيل الدخول للاختبار</h2>
+    <form id="loginForm">
+      <label for="studentName">الاسم الكامل:</label>
+      <input type="text" id="studentName" name="studentName" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+
+      <label for="studentGrade">الصف:</label>
+      <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <option value="">-- اختر الصف --</option>
+        <option value="العاشر">العاشر</option>
+        <option value="الحادي عشر">الحادي عشر</option>
+        <option value="الثاني عشر">الثاني عشر</option>
+      </select>
+
+      <button type="submit">بدء الاختبار</button>
+    </form>
+  </div>
+</div>
+
+
+<main>
+
+<div class="section-card">
+    <div class="header-text">
+      <h2> اختبار مستوى الأحياء لمن أنهى الصف التاسع </h2>
+    </div>
+ </div>
+
+
+  <div class="section-card" id="quizCard">
+    <div class="text-side">
+      <div class="timer" id="timer">10:00</div>
+      <form id="quizForm">
+        <div id="questionsContainer"></div>
+        <div>
+          <button type="button" id="prevBtn">السابق</button>
+          <button type="button" id="nextBtn">التالي</button>
+          <button type="submit" id="submitBtn" style="display:none;">إنهاء الاختبار</button>
+        </div>
+      </form>
+      <audio id="alertSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+    </div>
+    <div class="image-side">
+      <img src="images/exam.png" alt="Biology Exam">
+    </div>
+  </div>
+
+  <div class="section-card" id="resultSection" style="display:none;">
+    <div class="text-side">
+      <h2>نتيجة الاختبار</h2>
+      <div class="feedback" id="resultFeedback"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const questions = [
+    { question: "ما هي وحدة بناء الكائن الحي؟", choices: ["الخلية", "النسيج", "العضو", "الجهاز"], correct: "الخلية" },
+    { question: "ما الجزء المسؤول عن إنتاج الطاقة في الخلية؟", choices: ["النواة", "الميتوكوندريا", "الجدار الخلوي", "الريبوسوم"], correct: "الميتوكوندريا" },
+    { question: "ما نوع الحمض النووي الموجود في نواة الخلية؟", choices: ["RNA", "DNA", "ATP", "NADH"], correct: "DNA" },
+    { question: "أي من التالي يعد من مكونات الجهاز الدوري؟", choices: ["الرئة", "الكبد", "القلب", "الكلية"], correct: "القلب" },
+    { question: "ما هو الإنزيم الذي يهضم النشويات في الفم؟", choices: ["البيبسين", "الأميليز", "اللاكتيز", "المالتاز"], correct: "الأميليز" },
+    { question: "ما وظيفة كريات الدم البيضاء؟", choices: ["نقل الأكسجين", "الدفاع عن الجسم", "تجلط الدم", "نقل الغذاء"], correct: "الدفاع عن الجسم" },
+    { question: "أين يحدث التمثيل الضوئي؟", choices: ["الميتوكوندريا", "البلاستيدات الخضراء", "النواة", "السيتوبلازم"], correct: "البلاستيدات الخضراء" },
+    { question: "ما اسم الصبغة التي تمتص الضوء في النباتات؟", choices: ["الكاروتين", "الأنثوسيانين", "الكلوروفيل", "الفيكوبيليين"], correct: "الكلوروفيل" },
+    { question: "ما هو العظم الأطول في جسم الإنسان؟", choices: ["عظم الفخذ", "الزند", "عظم القص", "عظم الساعد"], correct: "عظم الفخذ" },
+    { question: "أين يتم امتصاص معظم الماء في الجهاز الهضمي؟", choices: ["الأمعاء الدقيقة", "الأمعاء الغليظة", "المعدة", "الكبد"], correct: "الأمعاء الغليظة" },
+    { question: "ما هو العضو المسؤول عن ترشيح الفضلات من الدم؟", choices: ["القلب", "الرئة", "الكبد", "الكلية"], correct: "الكلية" },
+    { question: "ما هو العصب المسؤول عن الرؤية؟", choices: ["العصب الوجهي", "العصب السمعي", "العصب البصري", "العصب الشمي"], correct: "العصب البصري" },
+    { question: "ما نوع العضلات التي توجد في الأمعاء؟", choices: ["الهيكلية", "الملساء", "القلبية", "الداخلية"], correct: "الملساء" },
+    { question: "أين يتم إنتاج خلايا الدم؟", choices: ["الطحال", "الكبد", "نخاع العظم", "الرئتين"], correct: "نخاع العظم" },
+    { question: "ما نوع المفصل بين عظام الجمجمة؟", choices: ["كروي", "محوري", "منزلق", "ثابت"], correct: "ثابت" },
+    { question: "ما هو مستوى التنظيم الأعلى من الأنسجة؟", choices: ["الخلية", "الجهاز", "العضو", "الذرة"], correct: "العضو" },
+    { question: "ما هو المكون الأساسي للكروموسومات؟", choices: ["RNA", "DNA", "بروتين", "ليبيدات"], correct: "DNA" },
+    { question: "ما هو الإنزيم الذي يفك شيفرة DNA أثناء النسخ؟", choices: ["ريبوسوم", "RNA بوليميراز", "إنزيم النسخ", "DNA بوليميراز"], correct: "RNA بوليميراز" },
+    { question: "أي الكائنات التالية بدائية النوى؟", choices: ["الطليعيات", "الفطريات", "البكتيريا", "النباتات"], correct: "البكتيريا" },
+    { question: "ما اسم العملية التي تنتقل بها الجزيئات من التركيز العالي إلى المنخفض؟", choices: ["النقل النشط", "الانتشار", "البلعمة", "الإخراج الخلوي"], correct: "الانتشار" }
+  ];
+
+  const container = document.getElementById('questionsContainer');
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.id = `q${i}`;
+    div.innerHTML = `<p>${i + 1}. ${q.question}</p>` + q.choices.map((choice) => `<label><input type="radio" name="q${i}" value="${choice}"> ${choice}</label>`).join('');
+    container.appendChild(div);
+  });
+
+  let currentIndex = 0;
+  const allQuestions = document.querySelectorAll('.question');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function updateDisplay() {
+    allQuestions.forEach((q, idx) => q.classList.toggle('active', idx === currentIndex));
+    prevBtn.style.display = currentIndex === 0 ? 'none' : 'inline-block';
+    nextBtn.style.display = currentIndex === allQuestions.length - 1 ? 'none' : 'inline-block';
+    submitBtn.style.display = currentIndex === allQuestions.length - 1 ? 'inline-block' : 'none';
+  }
+
+  nextBtn.onclick = () => {
+    const selected = document.querySelector(`input[name="q${currentIndex}"]:checked`);
+    if (!selected) { alert("يرجى اختيار إجابة قبل الانتقال"); return; }
+    currentIndex++;
+    updateDisplay();
+  };
+
+  prevBtn.onclick = () => {
+    currentIndex--;
+    updateDisplay();
+  };
+
+
+  document.getElementById('quizForm').onsubmit = function (e) {
+    e.preventDefault();
+    clearInterval(interval); // Stop the countdown timer
+    let score = 0;
+    const studentName = localStorage.getItem("studentName") || "الطالب";
+const studentGrade = localStorage.getItem("studentGrade") || "";
+let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
+
+    questions.forEach((q, i) => {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected) {
+        if (selected.value === q.correct) {
+          score++;
+          result += `<li class="correct">السؤال ${i + 1}: صحيح</li>`;
+        } else {
+          result += `<li class="incorrect">السؤال ${i + 1}: خطأ (الإجابة الصحيحة: ${q.correct})</li>`;
+        }
+      } else {
+        result += `<li class="incorrect">السؤال ${i + 1}: لم يتم الإجابة عليه (الإجابة الصحيحة: ${q.correct})</li>`;
+      }
+    });
+    result += `</ul><p><strong>النتيجة:</strong> ${score} من ${questions.length}</p>`;
+    document.getElementById('resultFeedback').innerHTML = result;
+
+// Send result data to Google Sheet
+fetch("https://script.google.com/macros/s/AKfycbwKw0brtQbEflg99xDxFdV5jX-EiqL283mk-F3wlJVMfB_kjNbduldjU46_-KxCXdwb/exec", {
+  method: "POST",
+  body: JSON.stringify({
+    name: studentName,
+    grade: studentGrade,
+    score: score
+  }),
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+.then(response => response.text())
+.then(data => console.log("Submitted:", data))
+.catch(error => console.error("Error submitting result:", error));
+
+   
+
+    document.getElementById('quizCard').style.display = 'none';  // hide whole quiz card (questions + image)
+    document.getElementById('resultSection').style.display = 'block'; // show feedback
+    scrollToTop();
+  };
+
+  updateDisplay();
+
+  let totalSeconds = 600;
+  const timer = document.getElementById("timer");
+  const alertSound = document.getElementById("alertSound");
+
+  const interval = setInterval(() => {
+    totalSeconds--;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    timer.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    if (totalSeconds === 60) alertSound.play();
+    if (totalSeconds <= 0) {
+      clearInterval(interval);
+      document.getElementById('quizForm').dispatchEvent(new Event('submit'));
+    }
+  }, 1000);
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const hamburger = document.querySelector('.hamburger');
+  const nav = document.querySelector('nav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !expanded);
+  });
+
+const loginSection = document.getElementById('loginSection');
+const quizSection = document.querySelector('main');
+const loginForm = document.getElementById('loginForm');
+
+quizSection.style.display = 'none'; // hide quiz until login
+
+loginForm.onsubmit = function (e) {
+  e.preventDefault();
+  const name = document.getElementById('studentName').value.trim();
+  const grade = document.getElementById('studentGrade').value;
+
+  if (!name || !grade) {
+    alert("يرجى إدخال الاسم والصف");
+    return;
+  }
+
+  // Optionally store in localStorage
+  localStorage.setItem("studentName", name);
+  localStorage.setItem("studentGrade", grade);
+
+  loginSection.style.display = 'none';
+  quizSection.style.display = 'block';
+  scrollToTop();
+};
+
+</script>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="images/footerIcon.png" alt="DNA Icon" class="dna-icon">
+    </div>
+    <div class="footer-text">
+      <p>© 2025 وفاء عبدات - جميع الحقوق محفوظة.</p>
+      <p>مدرسة عقربا الثانوية للبنات – Aqraba Secondary School for Girls</p>
+    </div>
+    <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
+  </div>
+</footer>
+
+</body>
+</html>
+
+
