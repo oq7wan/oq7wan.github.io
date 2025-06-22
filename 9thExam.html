@@ -458,7 +458,7 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الص�
     document.getElementById('resultFeedback').innerHTML = result;
 
 // Send result data to Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbwKw0brtQbEflg99xDxFdV5jX-EiqL283mk-F3wlJVMfB_kjNbduldjU46_-KxCXdwb/exec", {
+fetch("https://script.google.com/macros/s/AKfycbyLiehbOVridyLNK1ZTBMPAYfrzDpt_XTtUr5zyJ9OX9V4M4oAqgnMoq3hIncCftDV-/exec", {
   method: "POST",
   body: JSON.stringify({
     name: studentName,
