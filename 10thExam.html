@@ -1,6 +1,8 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -86,7 +88,7 @@ nav a:hover {
   background-color: #006400;
   color: white;
   text-align: center;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 16px;
   margin: 0 auto;   /* keeps it centered */
   width: 90%;       /* take 90 % of the card’s width */
@@ -543,6 +545,42 @@ nav a:hover {
 }
 
 
+.image-hover-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.image-hover-wrapper img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.image-hover-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  background-color: rgba(0, 100, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.image-hover-wrapper:hover .hover-text {
+  opacity: 1;
+}
+
 
   </style>
 </head>
@@ -569,16 +607,28 @@ nav a:hover {
 
 <div id="loginSection" class="section-card">
   <div class="image-side">
-    <img src="images/exam.png" alt="Biology Exam">
+    <div class="image-hover-wrapper">
+    <img src="images/exam.png" alt="students performing computerized exam">
+    <div class="hover-text"> استعد </div>
+  </div>
   </div>
 
   <div class="text-side">
     <h2>تسجيل الدخول لاختبار مستوى المعرفة بعلم الأحياء</h2>
     <form id="loginForm">
-      <label for="studentName">الاسم الكامل:</label>
+      <label for="studentName"> الاسم الكامل :</label>
       <input type="text" id="studentName" name="studentName" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
 
-      <label for="studentGrade">الصف:</label>
+
+       <label for="studentGrade"> هل أنهيت الصف التاسع ؟ </label>
+      <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <option value="">-- نعم أم لا ؟ --</option>
+        <option value="نعم"> نعم </option>
+        <option value="لا">لا</option>
+      </select>
+
+
+      <label for="studentGrade"> الصف الحالي : </label>
       <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
         <option value="">-- اختر الصف --</option>
         <option value="العاشر">العاشر</option>
@@ -597,7 +647,7 @@ nav a:hover {
 
 <div class="section-card">
     <div class="header-text">
-      <h2> اختبار مستوى المعرفة بعلم الأحياء لمن أنهى الصف العاشر </h2>
+      <h2> اختبار مستوى المعرفة بعلم الأحياء لمن أنهى الصف التاسع </h2>
     </div>
  </div>
 
