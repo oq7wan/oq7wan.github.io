@@ -432,36 +432,6 @@ nav a:hover {
   color: white;
 }
 
-#quizProgressContainer {
-  position: fixed;
-  top: 160px; 
-  left: 0;
-  width: 100%;
-  z-index: 1001; /* أعلى من nav (999) */
-  background-color: white;
-  height: 28px;
-  padding: 2px 0;
-  border-top: 2px solid #006400;
-  border-bottom: 2px solid #006400;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-#quizProgressBar {
-  height: 20px;
-  width: 0%;
-  background-color: #228B22;
-  color: white;
-  text-align: center;
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: bold;
-  border-radius: 0; /* أزل الزوايا الدائرية */
-  transition: width 0.4s ease;
-  border-left: 2px solid #006400;
-  border-right: 2px solid #006400;
-}
 
 
   </style>
@@ -485,10 +455,6 @@ nav a:hover {
   <a href="11th.html" target="_blank">الصف الحادي عشر</a>
   <a href="10th.html" target="_blank">الصف العاشر</a>
 </nav>
-
-<div id="quizProgressContainer">
-  <div class="progress-bar" id="quizProgressBar">0%</div>
-</div>
 
 
 <div id="loginSection" class="section-card">
@@ -613,7 +579,6 @@ questions.forEach((q, i) => {
   div.querySelectorAll('input[type="radio"]').forEach(input => {
     input.addEventListener('change', () => {
       document.querySelectorAll('.navigator-btn')[i].classList.add('answered');
-      updateProgressBar(); // update progress
     });
   });
 
@@ -625,15 +590,6 @@ questions.forEach((q, i) => {
   const nextBtn = document.getElementById('nextBtn');
   const submitBtn = document.getElementById('submitBtn');
 
-  function updateProgressBar() {
-  const answeredCount = [...allQuestions].filter((q, i) =>
-    document.querySelector(`input[name="q${i}"]:checked`)
-  ).length;
-  const percent = Math.round((answeredCount / questions.length) * 100);
-  const bar = document.getElementById('quizProgressBar');
-  bar.style.width = percent + "%";
-  bar.textContent = percent + "%";
-}
 
 function updateDisplay() {
   allQuestions.forEach((q, idx) => q.classList.toggle('active', idx === currentIndex));
@@ -641,7 +597,6 @@ function updateDisplay() {
   nextBtn.style.display = currentIndex === allQuestions.length - 1 ? 'none' : 'inline-block';
   submitBtn.style.display = currentIndex === allQuestions.length - 1 ? 'inline-block' : 'none';
   updateNavigator();
-  updateProgressBar(); // ✅ update bar whenever display updates
 }
 
 
@@ -788,7 +743,6 @@ loginForm.onsubmit = function (e) {
 
   loginSection.style.display = 'none';
   quizSection.style.display = 'block';
-  document.getElementById('quizProgressContainer').style.display = 'block';
   scrollToTop();
 };
 
