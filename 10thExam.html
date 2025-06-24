@@ -234,6 +234,44 @@ nav a:hover {
 
 #quizForm button {
   background-color: #006400;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  margin: 8px 6px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 100px;
+}
+
+#quizForm button:hover {
+  background-color: #004d00;
+  transform: scale(1.02);
+}
+
+#quizForm button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  #quizForm button {
+    width: 100%;
+    margin: 6px 0;
+    min-width: unset;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
 }
 
        
