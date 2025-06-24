@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -18,7 +19,7 @@
     body {
       margin: 0;
       padding: 0;
-      padding-top: 160px; /* 100px header + ~60px nav spacing */
+      padding-top: 180px; /* Header + Nav + Fixed Bar */
       background-color: #f4f4f9;
       overflow-x: hidden;
     }
@@ -56,8 +57,8 @@ nav {
 
 
 
-    nav a,
-.nav-current {
+   nav a,
+  .nav-current {
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -85,7 +86,7 @@ nav a:hover {
   background-color: #006400;
   color: white;
   text-align: center;
-  padding: 20px 40px;
+  padding: 10px 20px;
   border-radius: 16px;
   margin: 0 auto;   /* keeps it centered */
   width: 90%;       /* take 90 % of the card’s width */
@@ -102,7 +103,6 @@ nav a:hover {
 
     .section-card {
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
@@ -155,23 +155,126 @@ nav a:hover {
 }
 
 
+/* Style for the result section container */
+#resultSection {
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  max-width: 1000px;
+}
+
+/* Feedback box in result */
+#resultFeedback {
+  background-color: #f9f9ff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* Result list style */
+#resultFeedback ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+#resultFeedback li {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Correct answers */
+#resultFeedback li.correct {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+/* Incorrect answers */
+#resultFeedback li.incorrect {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+/* Score line */
+#resultFeedback p:last-of-type {
+  font-weight: bold;
+  margin-top: 25px;
+  font-size: 1.2rem;
+  color: #006400;
+}
+
+/* Name/grade line */
+#resultFeedback p:first-of-type {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+
+
     .question.active {
       display: block;
     }
-    label {
-      display: block;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    button {
-      background-color: #006400;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      margin: 10px 5px;
-      cursor: pointer;
-    }
+     
+    .question label {
+  display: block;
+  cursor: pointer;
+}
+
+#quizForm button {
+  background-color: #006400;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  margin: 8px 6px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 100px;
+}
+
+#quizForm button:hover {
+  background-color: #004d00;
+  transform: scale(1.02);
+}
+
+#quizForm button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  #quizForm button {
+    width: 100%;
+    margin: 6px 0;
+    min-width: unset;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+}
+
+       
     .feedback {
       margin-top: 30px;
       padding: 15px;
@@ -207,6 +310,33 @@ nav a:hover {
 
 /* Show hamburger only on small screens */
 @media (max-width: 768px) {
+
+ #quizCard {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  body {
+    padding-top: 180px;
+  }
+
+.section-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+
+  #quizForm button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+
+  .question p, .question label, .feedback {
+    font-size: 1rem;
+  }
+
+ 
   nav {
     position: fixed; /* keep sticky/fixed if you want */
     flex-direction: column;
@@ -294,6 +424,84 @@ nav a:hover {
   background-color: #004d00;
 }
 
+
+
+.navigator-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#navigatorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  #quizCard {
+    flex-direction: column;
+  }
+
+  .navigator-container, .text-side {
+    width: 100%;
+  }
+
+  .question p, .question label, .timer {
+    font-size: 1.1rem;
+  }
+}
+
+
+.navigator-btn {
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 0;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigator-btn.answered {
+  background-color: #ffcc00 !important; /* Yellow */
+  color: #000;
+}
+
+
+.navigator-btn:hover {
+  background-color: #d0e8d0;
+}
+
+.navigator-btn.active {
+  background-color: #228B22;
+  color: white;
+  border: none;
+}
+
+.navigator-btn.correct {
+  background-color: #28a745;
+  color: white;
+}
+
+.navigator-btn.incorrect {
+  background-color: #dc3545;
+  color: white;
+}
+
+
+/* Default: mobile-first (column) */
+#quizCard {
+  flex-direction: column;
+}
+
+
+
   </style>
 </head>
 
@@ -309,15 +517,21 @@ nav a:hover {
     <span></span>
     <span></span>
   </button>
-  <span class="nav-current">الرئيسية</span>
+  <span class="nav-current"> اختبار مستوى </span>
+  <a href="index.html" target="_blank">الرئيسية </a>
   <a href="12th.html" target="_blank">الصف الثاني عشر</a>
   <a href="11th.html" target="_blank">الصف الحادي عشر</a>
   <a href="10th.html" target="_blank">الصف العاشر</a>
 </nav>
 
+
 <div id="loginSection" class="section-card">
+  <div class="image-side">
+    <img src="images/exam.png" alt="Biology Exam">
+  </div>
+
   <div class="text-side">
-    <h2>تسجيل الدخول للاختبار</h2>
+    <h2>تسجيل الدخول لاختبار مستوى المعرفة بعلم الأحياء</h2>
     <form id="loginForm">
       <label for="studentName">الاسم الكامل:</label>
       <input type="text" id="studentName" name="studentName" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
@@ -333,9 +547,7 @@ nav a:hover {
       <button type="submit">بدء الاختبار</button>
     </form>
   </div>
-  <div class="image-side">
-    <img src="images/exam.png" alt="Biology Exam">
-  </div>
+  
 </div>
 
 
@@ -343,28 +555,31 @@ nav a:hover {
 
 <div class="section-card">
     <div class="header-text">
-      <h2> اختبار مستوى الأحياء لمن أنهى الصف الحادي عشر العلمي </h2>
+      <h2> اختبار مستوى المعرفة بعلم الأحياء لمن أنهى الصف التاسع </h2>
     </div>
  </div>
 
+<div class="section-card" id="quizCard">
 
-  <div class="section-card" id="quizCard">
-    <div class="text-side">
-      <div class="timer" id="timer">10:00</div>
-      <form id="quizForm">
-        <div id="questionsContainer"></div>
-        <div>
-          <button type="button" id="prevBtn">السابق</button>
-          <button type="button" id="nextBtn">التالي</button>
-          <button type="submit" id="submitBtn" style="display:none;">إنهاء الاختبار</button>
-        </div>
-      </form>
-      <audio id="alertSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-    </div>
-    <div class="image-side">
-      <img src="images/exam.png" alt="Biology Exam">
-    </div>
+  <div class="navigator-container">
+    <h3 style="text-align:center;">الانتقال بين الأسئلة</h3>
+    <div class="question-grid" id="navigatorGrid"></div>
   </div>
+
+  <div class="text-side">
+    <div class="timer" id="timer">10:00</div>
+    <form id="quizForm">
+      <div id="questionsContainer"></div>
+      <div>
+        <button type="button" id="prevBtn">السابق</button>
+        <button type="button" id="nextBtn">التالي</button>
+        <button type="submit" id="submitBtn" style="display:none;">إنهاء الاختبار</button>
+      </div>
+    </form>
+    <audio id="alertSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+  </div>
+</div>
+
 
   <div class="section-card" id="resultSection" style="display:none;">
     <div class="text-side">
@@ -398,6 +613,23 @@ nav a:hover {
     { question: "ما اسم العملية التي تنتقل بها الجزيئات من التركيز العالي إلى المنخفض؟", choices: ["النقل النشط", "الانتشار", "البلعمة", "الإخراج الخلوي"], correct: "الانتشار" }
   ];
 
+const navigatorGrid = document.getElementById('navigatorGrid');
+questions.forEach((q, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'navigator-btn';
+  btn.textContent = i + 1;
+  btn.onclick = () => {
+    const selected = document.querySelector(`input[name="q${currentIndex}"]:checked`);
+    if (!selected && currentIndex !== i) {
+      if (!confirm("لم تقم بالإجابة بعد. هل تريد الانتقال؟")) return;
+    }
+    currentIndex = i;
+    updateDisplay();
+  };
+  navigatorGrid.appendChild(btn);
+});
+
+
   const container = document.getElementById('questionsContainer');
   questions.forEach((q, i) => {
     const div = document.createElement('div');
@@ -405,6 +637,13 @@ nav a:hover {
     div.id = `q${i}`;
     div.innerHTML = `<p>${i + 1}. ${q.question}</p>` + q.choices.map((choice) => `<label><input type="radio" name="q${i}" value="${choice}"> ${choice}</label>`).join('');
     container.appendChild(div);
+      // Add event listener to mark question as answered
+  div.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('.navigator-btn')[i].classList.add('answered');
+    });
+  });
+
   });
 
   let currentIndex = 0;
@@ -413,12 +652,24 @@ nav a:hover {
   const nextBtn = document.getElementById('nextBtn');
   const submitBtn = document.getElementById('submitBtn');
 
-  function updateDisplay() {
-    allQuestions.forEach((q, idx) => q.classList.toggle('active', idx === currentIndex));
-    prevBtn.style.display = currentIndex === 0 ? 'none' : 'inline-block';
-    nextBtn.style.display = currentIndex === allQuestions.length - 1 ? 'none' : 'inline-block';
-    submitBtn.style.display = currentIndex === allQuestions.length - 1 ? 'inline-block' : 'none';
-  }
+
+function updateDisplay() {
+  allQuestions.forEach((q, idx) => q.classList.toggle('active', idx === currentIndex));
+  prevBtn.style.display = currentIndex === 0 ? 'none' : 'inline-block';
+  nextBtn.style.display = currentIndex === allQuestions.length - 1 ? 'none' : 'inline-block';
+  submitBtn.style.display = currentIndex === allQuestions.length - 1 ? 'inline-block' : 'none';
+  updateNavigator();
+}
+
+
+function updateNavigator() {
+  document.querySelectorAll('.navigator-btn').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx === currentIndex);
+    // Do not touch 'answered' class to preserve color
+  });
+}
+
+
 
   nextBtn.onclick = () => {
     const selected = document.querySelector(`input[name="q${currentIndex}"]:checked`);
@@ -441,15 +692,26 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الص�
 
     questions.forEach((q, i) => {
       const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const navBtn = document.querySelectorAll('.navigator-btn')[i];
+  if (selected) {
+    if (selected.value === q.correct) {
+      navBtn.classList.add('correct');
+    } else {
+      navBtn.classList.add('incorrect');
+    }
+  } else {
+    navBtn.classList.add('incorrect');
+  }
+
       if (selected) {
         if (selected.value === q.correct) {
           score++;
-          result += `<li class="correct">السؤال ${i + 1}: صحيح</li>`;
+          result += `<li class="correct"> ✔ السؤال  ${i + 1} : صحيح</li>`;
         } else {
-          result += `<li class="incorrect">السؤال ${i + 1}: خطأ (الإجابة الصحيحة: ${q.correct})</li>`;
+          result += `<li class="incorrect"> ✘ السؤال ${i + 1} : خطأ </li>`;
         }
       } else {
-        result += `<li class="incorrect">السؤال ${i + 1}: لم يتم الإجابة عليه (الإجابة الصحيحة: ${q.correct})</li>`;
+        result += `<li class="incorrect">السؤال ${i + 1} : لم يتم الإجابة عليه </li>`;
       }
     });
     result += `</ul><p><strong>النتيجة:</strong> ${score} من ${questions.length}</p>`;
@@ -457,6 +719,28 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الص�
     document.getElementById('quizCard').style.display = 'none';  // hide whole quiz card (questions + image)
     document.getElementById('resultSection').style.display = 'block'; // show feedback
     scrollToTop();
+    
+// إرسال البيانات إلى Google Sheet
+fetch("https://script.google.com/macros/s/AKfycbzf3Xt21YRSTNhhQufgce2lPLQtEfhfZmWoarIfyzZ-VOEzNxBYF13O-vRmkNJYDU25/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: studentName,
+    grade: studentGrade,
+    score: score
+  })
+})
+.then(response => response.text())
+.then(result => {
+  console.log("تم الإرسال:", result);
+})
+.catch(error => {
+  console.error("فشل الإرسال:", error);
+});
+
+
   };
 
   updateDisplay();
@@ -506,6 +790,8 @@ loginForm.onsubmit = function (e) {
     alert("يرجى إدخال الاسم والصف");
     return;
   }
+
+
 
   // Optionally store in localStorage
   localStorage.setItem("studentName", name);
