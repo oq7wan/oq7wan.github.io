@@ -406,6 +406,12 @@ nav a:hover {
   transition: background-color 0.3s ease;
 }
 
+.navigator-btn.answered {
+  background-color: #ffcc00 !important; /* Yellow */
+  color: #000;
+}
+
+
 .navigator-btn:hover {
   background-color: #d0e8d0;
 }
@@ -603,6 +609,14 @@ questions.forEach((q, i) => {
     div.id = `q${i}`;
     div.innerHTML = `<p>${i + 1}. ${q.question}</p>` + q.choices.map((choice) => `<label><input type="radio" name="q${i}" value="${choice}"> ${choice}</label>`).join('');
     container.appendChild(div);
+      // Add event listener to mark question as answered
+  div.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('.navigator-btn')[i].classList.add('answered');
+      updateProgressBar(); // update progress
+    });
+  });
+
   });
 
   let currentIndex = 0;
@@ -630,6 +644,13 @@ function updateDisplay() {
   updateProgressBar(); // ✅ update bar whenever display updates
 }
 
+
+function updateNavigator() {
+  document.querySelectorAll('.navigator-btn').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx === currentIndex);
+    // DO NOT remove 'answered' here so yellow stays
+  });
+}
 
 
 function updateNavigator() {
