@@ -57,8 +57,8 @@ nav {
 
 
 
-    nav a,
-.nav-current {
+   nav a,
+  .nav-current {
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -86,7 +86,7 @@ nav a:hover {
   background-color: #006400;
   color: white;
   text-align: center;
-  padding: 20px 40px;
+  padding: 10px 20px;
   border-radius: 16px;
   margin: 0 auto;   /* keeps it centered */
   width: 90%;       /* take 90 % of the card’s width */
@@ -103,7 +103,6 @@ nav a:hover {
 
     .section-card {
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
@@ -227,20 +226,55 @@ nav a:hover {
     .question.active {
       display: block;
     }
-    label {
-      display: block;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    button {
-      background-color: #006400;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      margin: 10px 5px;
-      cursor: pointer;
-    }
+     
+    .question label {
+  display: block;
+  cursor: pointer;
+}
+
+#quizForm button {
+  background-color: #006400;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  margin: 8px 6px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 100px;
+}
+
+#quizForm button:hover {
+  background-color: #004d00;
+  transform: scale(1.02);
+}
+
+#quizForm button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  #quizForm button {
+    width: 100%;
+    margin: 6px 0;
+    min-width: unset;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+}
+
+       
     .feedback {
       margin-top: 30px;
       padding: 15px;
@@ -276,6 +310,33 @@ nav a:hover {
 
 /* Show hamburger only on small screens */
 @media (max-width: 768px) {
+
+ #quizCard {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  body {
+    padding-top: 180px;
+  }
+
+.section-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+
+  #quizForm button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+
+  .question p, .question label, .feedback {
+    font-size: 1rem;
+  }
+
+ 
   nav {
     position: fixed; /* keep sticky/fixed if you want */
     flex-direction: column;
@@ -363,37 +424,38 @@ nav a:hover {
   background-color: #004d00;
 }
 
-@media (max-width: 768px) {
-  body {
-    padding-top: 180px;
-  }
 
-.section-card {
-    flex-direction: column;
-    text-align: center;
-  }
+
+.navigator-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-
-@media (max-width: 500px) {
-  #quizForm button {
-    width: 100%;
-    margin: 5px 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .question p, .question label, .feedback {
-    font-size: 1rem;
-  }
-}
-
 
 #navigatorGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
   gap: 10px;
-  margin-top: 15px;
 }
+
+@media (max-width: 768px) {
+  #quizCard {
+    flex-direction: column;
+  }
+
+  .navigator-container, .text-side {
+    width: 100%;
+  }
+
+  .question p, .question label, .timer {
+    font-size: 1.1rem;
+  }
+}
+
 
 .navigator-btn {
   background-color: #eee;
@@ -433,6 +495,12 @@ nav a:hover {
 }
 
 
+/* Default: mobile-first (column) */
+#quizCard {
+  flex-direction: column;
+}
+
+
 
   </style>
 </head>
@@ -463,7 +531,7 @@ nav a:hover {
   </div>
 
   <div class="text-side">
-    <h2>تسجيل الدخول للاختبار</h2>
+    <h2>تسجيل الدخول لاختبار مستوى المعرفة بعلم الأحياء</h2>
     <form id="loginForm">
       <label for="studentName">الاسم الكامل:</label>
       <input type="text" id="studentName" name="studentName" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
@@ -487,37 +555,31 @@ nav a:hover {
 
 <div class="section-card">
     <div class="header-text">
-      <h2> اختبار مستوى الأحياء لمن أنهى الصف التاسع </h2>
+      <h2> اختبار مستوى المعرفة بعلم الأحياء لمن أنهى الصف التاسع </h2>
     </div>
  </div>
 
+<div class="section-card" id="quizCard">
 
-  <div class="section-card" id="quizCard">
-
-<div class="image-side">
-      <div class="section-card" id="questionNavigator">
-    <div class="text-side">
-    <h3>الانتقال بين الأسئلة</h3>
+  <div class="navigator-container">
+    <h3 style="text-align:center;">الانتقال بين الأسئلة</h3>
     <div class="question-grid" id="navigatorGrid"></div>
   </div>
-</div>
-</div>
 
-    <div class="text-side">
-
-      <div class="timer" id="timer">10:00</div>
-      <form id="quizForm">
-        <div id="questionsContainer"></div>
-        <div>
-          <button type="button" id="prevBtn">السابق</button>
-          <button type="button" id="nextBtn">التالي</button>
-          <button type="submit" id="submitBtn" style="display:none;">إنهاء الاختبار</button>
-        </div>
-      </form>
-      <audio id="alertSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-    </div>
-
+  <div class="text-side">
+    <div class="timer" id="timer">10:00</div>
+    <form id="quizForm">
+      <div id="questionsContainer"></div>
+      <div>
+        <button type="button" id="prevBtn">السابق</button>
+        <button type="button" id="nextBtn">التالي</button>
+        <button type="submit" id="submitBtn" style="display:none;">إنهاء الاختبار</button>
+      </div>
+    </form>
+    <audio id="alertSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
   </div>
+</div>
+
 
   <div class="section-card" id="resultSection" style="display:none;">
     <div class="text-side">
@@ -603,16 +665,10 @@ function updateDisplay() {
 function updateNavigator() {
   document.querySelectorAll('.navigator-btn').forEach((btn, idx) => {
     btn.classList.toggle('active', idx === currentIndex);
-    // DO NOT remove 'answered' here so yellow stays
+    // Do not touch 'answered' class to preserve color
   });
 }
 
-
-function updateNavigator() {
-  document.querySelectorAll('.navigator-btn').forEach((btn, idx) => {
-    btn.classList.toggle('active', idx === currentIndex);
-  });
-}
 
 
   nextBtn.onclick = () => {
