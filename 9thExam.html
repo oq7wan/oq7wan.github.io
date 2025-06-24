@@ -486,6 +486,10 @@ nav a:hover {
 
 
 <div id="loginSection" class="section-card">
+  <div class="image-side">
+    <img src="images/exam.png" alt="Biology Exam">
+  </div>
+
   <div class="text-side">
     <h2>تسجيل الدخول للاختبار</h2>
     <form id="loginForm">
@@ -503,9 +507,7 @@ nav a:hover {
       <button type="submit">بدء الاختبار</button>
     </form>
   </div>
-  <div class="image-side">
-    <img src="images/exam.png" alt="Biology Exam">
-  </div>
+  
 </div>
 
 
@@ -519,6 +521,16 @@ nav a:hover {
 
 
   <div class="section-card" id="quizCard">
+
+<div class="image-side">
+      <div class="section-card" id="questionNavigator">
+    <div class="text-side">
+    <h3>الانتقال بين الأسئلة</h3>
+    <div class="question-grid" id="navigatorGrid"></div>
+  </div>
+</div>
+</div>
+
     <div class="text-side">
 
       <div class="timer" id="timer">10:00</div>
@@ -532,16 +544,7 @@ nav a:hover {
       </form>
       <audio id="alertSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
     </div>
-    <div class="image-side">
- 
-      <div class="section-card" id="questionNavigator">
-  <div class="text-side">
-    <h3>الانتقال بين الأسئلة</h3>
-    <div class="question-grid" id="navigatorGrid"></div>
-  </div>
-</div>
 
-    </div>
   </div>
 
   <div class="section-card" id="resultSection" style="display:none;">
