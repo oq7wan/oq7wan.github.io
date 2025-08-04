@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://oq7wan.github.io/sitemap.xml
