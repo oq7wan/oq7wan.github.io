@@ -227,10 +227,6 @@ img {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .section-card {
-    flex-direction: column;
-    text-align: center;
-  }
 
   .text-side {
     text-align: right;
@@ -442,7 +438,20 @@ img {
   align-items: center;
   gap: 14px;
 }
-    
+
+.sections-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 20px auto;
+}
   
 </style>
 
@@ -631,6 +640,7 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
 
 
