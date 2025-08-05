@@ -85,6 +85,9 @@ nav a:hover {
   margin: 20px auto;
 }
 
+.section-card.column-layout .image-side {
+  height: 200px; /* or any fixed height you prefer */
+}    
 
 /* Image side */
 .image-side {
@@ -151,9 +154,13 @@ nav a:hover {
 /* Container for image and overlay */
 .image-hover-wrapper {
   position: relative;
-  display: inline-block;
+  display: flex; /* instead of inline-block */
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   border-radius: 12px;
+  width: 100%;
+  height: 100%;
 }
 
 /* The image itself */
@@ -593,6 +600,7 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
 
 
