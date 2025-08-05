@@ -639,6 +639,13 @@ nav a:hover {
         <option value="غير ذلك"> غير ذلك </option>
       </select>
 
+      <label for="studentGender"> الجنس : </label>
+       <select id="studentGender" name="studentGender" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <option value="">-- --</option>
+        <option value="ذكر"> ذكر </option>
+        <option value="أنثى"> أنثى  </option>
+      </select>
+
       <button type="submit">بدء الاختبار</button>
     </form>
   </div>
@@ -782,8 +789,8 @@ function updateNavigator() {
     e.preventDefault();
     let score = 0;
     const studentName = localStorage.getItem("studentName") || "الطالب";
-const studentGrade = localStorage.getItem("studentGrade") || "";
-let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
+const studentSchool = localStorage.getItem("studentSchool") || "";
+let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>المدرسة:</strong> ${studentSchool}</p><h3>النتائج:</h3><ul>`;
 
     questions.forEach((q, i) => {
       const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -823,7 +830,9 @@ fetch("https://script.google.com/macros/s/AKfycbzf3Xt21YRSTNhhQufgce2lPLQtEfhfZm
   },
   body: JSON.stringify({
     name: studentName,
-    grade: studentGrade,
+    level: studentGrade,
+    school: studentSchool,
+    Gender: studentGender,
     score: score
   })
 })
@@ -913,6 +922,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
