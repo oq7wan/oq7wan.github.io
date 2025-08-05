@@ -822,7 +822,7 @@ fetch("https://script.google.com/macros/s/AKfycbzf3Xt21YRSTNhhQufgce2lPLQtEfhfZm
   body: JSON.stringify({
     name: studentName,
     school: studentSchool,
-    Gender: studentGender,
+    gender: studentGender,
     score: score
   })
 })
@@ -890,6 +890,7 @@ loginForm.onsubmit = function (e) {
   // Optionally store in localStorage
   localStorage.setItem("studentName", name);
   localStorage.setItem("studentSchool", school);
+  localStorage.setItem("studentGender", gender);
 
   loginSection.style.display = 'none';
   quizSection.style.display = 'block';
@@ -912,6 +913,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
