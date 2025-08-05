@@ -636,16 +636,7 @@ nav a:hover {
         <option value="ذكر"> ذكر </option>
         <option value="أنثى"> أنثى  </option>
       </select>
-
-      <label for="studentGrade"> ما تقييمك المدرسي الذي حصلت عليه في مادة العلوم العامة للصف التاسع ؟ </label>
-       <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-        <option value="">-- --</option>
-        <option value="ممتاز"> ممتاز </option>
-        <option value="جيد جداً"> جيد جداً </option>
-        <option value="جيد"> جيد </option>
-        <option value="غير ذلك"> غير ذلك </option>
-      </select>
-
+      
       <button type="submit">بدء الاختبار</button>
     </form>
   </div>
@@ -830,7 +821,6 @@ fetch("https://script.google.com/macros/s/AKfycbzf3Xt21YRSTNhhQufgce2lPLQtEfhfZm
   },
   body: JSON.stringify({
     name: studentName,
-    level: studentGrade,
     school: studentSchool,
     Gender: studentGender,
     score: score
@@ -888,10 +878,10 @@ quizSection.style.display = 'none'; // hide quiz until login
 loginForm.onsubmit = function (e) {
   e.preventDefault();
   const name = document.getElementById('studentName').value.trim();
-  const grade = document.getElementById('studentGrade').value;
+  const school = document.getElementById('studentSchool').value;
 
   if (!name || !grade) {
-    alert("يرجى إدخال الاسم والصف");
+    alert("يرجى إدخال الاسم و المدرسة");
     return;
   }
 
@@ -899,7 +889,7 @@ loginForm.onsubmit = function (e) {
 
   // Optionally store in localStorage
   localStorage.setItem("studentName", name);
-  localStorage.setItem("studentGrade", grade);
+  localStorage.setItem("studentSchool", school);
 
   loginSection.style.display = 'none';
   quizSection.style.display = 'block';
@@ -922,6 +912,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
