@@ -630,20 +630,20 @@ nav a:hover {
       <label for="studentSchool"> اسم المدرسة :</label>
       <input type="text" id="studentSchool" name="studentSchool" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
 
-       <label for="studentGrade"> ما تقييمك المدرسي الذي حصلت عليه في مادة العلوم العامة للصف التاسع ؟ </label>
+      <label for="studentGender"> الجنس : </label>
+       <select id="studentGender" name="studentGender" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <option value="">-- --</option>
+        <option value="ذكر"> ذكر </option>
+        <option value="أنثى"> أنثى  </option>
+      </select>
+
+      <label for="studentGrade"> ما تقييمك المدرسي الذي حصلت عليه في مادة العلوم العامة للصف التاسع ؟ </label>
        <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
         <option value="">-- --</option>
         <option value="ممتاز"> ممتاز </option>
         <option value="جيد جداً"> جيد جداً </option>
         <option value="جيد"> جيد </option>
         <option value="غير ذلك"> غير ذلك </option>
-      </select>
-
-      <label for="studentGender"> الجنس : </label>
-       <select id="studentGender" name="studentGender" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-        <option value="">-- --</option>
-        <option value="ذكر"> ذكر </option>
-        <option value="أنثى"> أنثى  </option>
       </select>
 
       <button type="submit">بدء الاختبار</button>
@@ -922,6 +922,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
