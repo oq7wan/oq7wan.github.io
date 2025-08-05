@@ -879,13 +879,12 @@ loginForm.onsubmit = function (e) {
   e.preventDefault();
   const name = document.getElementById('studentName').value.trim();
   const school = document.getElementById('studentSchool').value;
-
+  const gender = document.getElementById('studentGender').value;
+  
   if (!name || !school || !gender) {
     alert("يرجى إدخال الاسم و المدرسة و الجنس");
     return;
   }
-
-
 
   // Optionally store in localStorage
   localStorage.setItem("studentName", name);
@@ -913,6 +912,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
