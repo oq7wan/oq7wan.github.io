@@ -1,12 +1,9 @@
-
-
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> Exams Interface </title>
+  <title> علم الأحياء </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/favicon.png" type="image/png">
   <style>
@@ -78,15 +75,16 @@ nav a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 12px;                   /* smaller space between image/text */
+  padding: 10px 16px;          /* reduce vertical padding */
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
-  margin: 40px auto;
+  max-width: 800px;
+  margin: 24px auto;           /* reduce vertical margin between cards */
 }
+
 
 
 /* Image side */
@@ -96,11 +94,14 @@ nav a:hover {
 }
 
 .image-side img {
+  width: 200px;                /* slightly smaller */
   max-width: 100%;
   height: auto;
   border-radius: 12px;
   transition: transform 0.3s ease;
 }
+
+
 
 .image-side img:hover {
   transform: scale(1.05);
@@ -112,7 +113,7 @@ nav a:hover {
   flex: 1;
   direction: rtl;
   text-align: right;
-  padding: 20px;
+  padding: 12px;
   background: linear-gradient(to top left, #f0fff0, #ffffff);
   border-radius: 12px;
   border-right: 5px solid #228B22;
@@ -127,7 +128,7 @@ nav a:hover {
 
 .text-side h2 {
   color: #006400;
-  font-size: 1.8em;
+  font-size: 1.3em;
   line-height: 1.5;
   margin-bottom: 10px;
 }
@@ -413,7 +414,7 @@ img {
 </head>
 <body>
   <header>
-    <h1>منصة علم الأحياء</h1>
+    <h1> منصة علم الأحياء </h1>
   </header>
 
   <nav>
@@ -423,11 +424,10 @@ img {
     <span></span>
   </button>
 
-  <span class="nav-current"> اختبارات مستوى </span>
-  <a href="index.html" target="_blank"> الرئيسية </a>
-  <a href="12th.html" target="_blank">الصف الثاني عشر</a>
-  <a href="11th.html" target="_blank">الصف الحادي عشر</a>
-  <a href="10th.html" target="_blank">الصف العاشر</a>
+  <span class="nav-current"> الرئيسية</span>
+  <a href="12th grade Interface.html" target="_blank">الصف الثاني عشر</a>
+  <a href="11th grade Interface.html" target="_blank">الصف الحادي عشر</a>
+  <a href="10th grade Interface.html" target="_blank">الصف العاشر</a>
 </nav>
 
 
@@ -436,7 +436,7 @@ img {
   <div class="image-side">
   <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
     <a href="9thExam.html" target="_blank">
-    <img src="images/exam.png" alt="school students performing exam">
+    <img src="images/exam.png" alt="Lab Technician">
     <div class="hover-text"> اضغط هنا </div>
     </a>
   </div>
@@ -448,13 +448,12 @@ img {
   </div>
 </div>
 
-
   <div class="section-card">
   <!-- Left side: Image -->
   <div class="image-side">
   <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
-    <a href="10thExam.html" target="_blank">
-    <img src="images/exam.png" alt="school students performing exam">
+   <a href="10thExam.html" target="_blank">
+    <img src="images/exam.png" alt="Lab Technician">
     <div class="hover-text"> اضغط هنا </div>
     </a>
   </div>
@@ -466,13 +465,12 @@ img {
   </div>
 </div>
 
-
-<div class="section-card">
+  <div class="section-card">
   <!-- Left side: Image -->
   <div class="image-side">
   <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
-    <a href="11thExam.html" target="_blank">
-    <img src="images/exam.png" alt="school students performing exam">
+   <a href="11thExam.html" target="_blank">
+    <img src="images/exam.png" alt="Lab Technician">
     <div class="hover-text"> اضغط هنا </div>
     </a>
   </div>
@@ -480,13 +478,9 @@ img {
 
   <!-- Right side: Text -->
   <div class="text-side">
-    <h2>  اختبار مستوى لمن أنهى الصف الحادي عشر العلمي </h2>
+    <h2> اختبار مستوى لمن أنهى الصف الحادي عشر </h2>
   </div>
 </div>
-
-
-
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -566,7 +560,8 @@ function scrollToTop() {
       <img src="images/footerIcon.png" alt="DNA Icon" class="dna-icon">
     </div>
     <div class="footer-text">
-      <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
+      <p>© 2025 وفاء عبدات - جميع الحقوق محفوظة.</p>
+       <p>مدرسة عقربا الثانوية للبنات – Aqraba Secondary School for Girls</p>
     </div>
     <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
   </div>
@@ -574,5 +569,4 @@ function scrollToTop() {
 
 
 </body>
-
 </html>
