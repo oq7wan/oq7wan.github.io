@@ -779,8 +779,10 @@ function updateNavigator() {
   document.getElementById('quizForm').onsubmit = function (e) {
     e.preventDefault();
     let score = 0;
-    const studentName = localStorage.getItem("studentName") || "الطالب";
+    const studentName = localStorage.getItem("studentName") || "";
 const studentSchool = localStorage.getItem("studentSchool") || "";
+const studentGender = localStorage.getItem("studentGender") || "";
+
 let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>المدرسة:</strong> ${studentSchool}</p><h3>النتائج:</h3><ul>`;
 
     questions.forEach((q, i) => {
@@ -912,6 +914,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
