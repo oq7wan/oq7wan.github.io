@@ -435,6 +435,14 @@ img {
   height: auto;
   border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
 }
+
+.sections-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+    
   
 </style>
 
@@ -500,13 +508,9 @@ img {
 </div> <!--end of sections-wraper-->
 
 <div class="sections-wrapper">
- <div class="section-card column-layout">
-  <!-- Right side: Text -->
-  <div class="text-side">
-    <h2> الفصل الدراسي الأول </h2>
-  </div>
-
-  <!-- Left side: Image -->
+<!-- First Semester Card -->
+<div class="sections-card">
+  <!-- Image first (to appear on the right in RTL) -->
   <div class="image-side">
     <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
       <a href="12th first semester interface.html" target="_blank">
@@ -515,15 +519,15 @@ img {
       </a>
     </div>
   </div>
+
+  <!-- Text second (to appear on the left) -->
+  <div class="text-side">
+    <h2> الفصل الدراسي الأول </h2>
+  </div>
 </div>
 
-<div class="section-card column-layout">
-  <!-- Right side: Text -->
-  <div class="text-side">
-    <h2> الفصل الدراسي الثاني </h2>
-  </div>
-
-  <!-- Left side: Image -->
+<!-- Second Semester Card -->
+<div class="sections-card">
   <div class="image-side">
     <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
       <a href="12th second semester interface.html" target="_blank">
@@ -532,7 +536,12 @@ img {
       </a>
     </div>
   </div>
+
+  <div class="text-side">
+    <h2> الفصل الدراسي الثاني </h2>
+  </div>
 </div>
+
 </div> <!--end of sections-wraper-->
 
 <script>
@@ -622,6 +631,7 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
 
 
