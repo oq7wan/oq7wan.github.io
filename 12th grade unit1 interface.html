@@ -435,14 +435,29 @@ img {
   border-top: 5px solid #228B22;
 }
 
+.header-logo-text {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo {
+  width: 60px; /* يمكنك التعديل حسب حجم الصورة */
+  height: auto;
+  border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
+}
 
   </style>
 
 </head>
+  
 <body>
   <header>
-    <h1>منصة علم الأحياء</h1>
-  </header>
+  <div class="header-logo-text">
+    <img src="images/favicon.png" alt="شعار أقحوان" class="header-logo">
+    <h1> أُقْحُوان </h1>
+  </div>
+</header>
 
   <nav>
   <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -584,4 +599,5 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
