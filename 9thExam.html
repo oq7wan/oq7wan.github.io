@@ -880,8 +880,8 @@ loginForm.onsubmit = function (e) {
   const name = document.getElementById('studentName').value.trim();
   const school = document.getElementById('studentSchool').value;
 
-  if (!name || !grade) {
-    alert("يرجى إدخال الاسم و المدرسة");
+  if (!name || !school || !gender) {
+    alert("يرجى إدخال الاسم و المدرسة و الجنس");
     return;
   }
 
@@ -912,6 +912,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
