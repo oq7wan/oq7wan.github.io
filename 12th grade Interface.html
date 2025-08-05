@@ -88,9 +88,14 @@ nav a:hover {
 
 /* Image side */
 .image-side {
-  padding: 12px; /* Add padding around the image */
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: center;      /* Centers vertically */
+  padding: 12px;
   max-width: 280px;
+  height: 100%;             /* Optional: helps with vertical alignment if needed */
 }
+
 
 .image-side img {
  max-width: 100%;
@@ -588,6 +593,7 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
 
 
