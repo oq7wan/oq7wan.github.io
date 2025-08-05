@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نموذج الاختبار</title>
+</head>
+<body>
+  <form id="quizForm">
+    <input type="text" id="name" placeholder="الاسم" required>
+    <input type="text" id="school" placeholder="المدرسة" required><br>
+    <label><input type="radio" name="gender" value="ذكر" required> ذكر</label>
+    <label><input type="radio" name="gender" value="أنثى"> أنثى</label><br>
+    <button type="submit">إرسال</button>
+  </form>
+
+  <script>
+    document.getElementById("quizForm").onsubmit = function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const school = document.getElementById("school").value;
+      const gender = document.querySelector("input[name='gender']:checked").value;
+      const score = 10; // Replace with actual score
+
+      fetch("https://script.google.com/macros/s/YOUR_DEPLOYED_URL/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          school: school,
+          gender: gender,
+          score: score
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("✅ تم إرسال البيانات: " + data.message);
+      })
+      .catch(err => {
+        alert("❌ خطأ أثناء الإرسال: " + err.message);
+        console.error(err);
+      });
+    };
+  </script>
+</body>
+</html>
