@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> الخلية : التركيب الكيميائي و آليات النقل </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="icon" href="images/icon.png" type="image/png">
   <style>
     * {
       box-sizing: border-box;
@@ -461,13 +461,29 @@ img {
   visibility: hidden;
 }
 
+.header-logo-text {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo {
+  width: 60px; /* يمكنك التعديل حسب حجم الصورة */
+  height: auto;
+  border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
+}
+
+
   </style>
 
 </head>
 <body>
   <header>
-    <h1>الصف الحادي عشر العلمي</h1>
-  </header>
+  <div class="header-logo-text">
+    <img src="images/icon.png" alt="شعار أقحوان" class="header-logo">
+    <h1> أُقْحُوان </h1>
+  </div>
+</header>
 
   <nav>
   <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -614,7 +630,7 @@ function scrollToTop() {
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-logo">
-      <img src="images/footerIcon.png" alt="DNA Icon" class="dna-icon">
+      <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
     </div>
     <div class="footer-text">
       <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
@@ -627,3 +643,4 @@ function scrollToTop() {
 </body>
 
 </html>
+
