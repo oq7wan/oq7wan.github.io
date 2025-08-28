@@ -603,17 +603,16 @@ img {
 
 <audio id="boxSound" preload="auto" src="box_open.mp3"></audio>
 <h2>افتح الصندوق - لعبة مراجعة مصطلحات الجهاز المناعي</h2>
-<h3> اختر صندوق عشوائي و سيظهر لك سؤال، في حال أجبت عنه إجابة صحيحة تحصل على 3 نقاط و في حال أجبت إجابة خاطئة تخسر نقطتين </h3>
+<h3> اختر صندوق عشوائي و سيظهر لك سؤال، في حال أجبت عنه إجابة صحيحة تحصل على 3 نقاط و في حال أجبت إجابة خاطئة تخسر نقطة </h3>
 <div class="container" id="boxContainer"></div>
 <div class="question-area" id="questionArea" style="display:none;">
 <div class="question" id="questionText"></div>
 <div class="choices" id="choicesContainer"></div>
 </div>
-<div class="score" id="scoreDisplay">النقاط: 0</div>
-
+  
 <div class="scoreboard">
-  <div id="team2Score" class="team-score">فريق 2: 0</div>
-  <div id="team1Score" class="team-score">فريق 1: 0</div>
+  <div id="team2Score" class="team-score"> الفريق الأول : 0 </div>
+  <div id="team1Score" class="team-score"> الفريق الثاني : 0 </div>
 </div>   
   
 <script>
@@ -776,9 +775,9 @@ function scrollToTop() {
          }
        } else {
          if (currentTeam === 1) {
-           team1Score -= 2;
+           team1Score -= 1;
          } else {
-           team2Score -= 2;
+           team2Score -= 1;
          }
        }
        updateScores();
