@@ -524,8 +524,16 @@ img {
     color: black;
 }
 
+.choices {
+  display: flex;
+  flex-direction: column;  /* يخلي الأزرار تحت بعض */
+  align-items: stretch;    /* يخليهم كلهم نفس العرض */
+  gap: 8px;                /* مسافة بين كل زر */
+}
+
 .choices button {
-    margin: 5px;
+  flex: 1;                 /* يخلي العرض متساوي */
+  margin: 5px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -533,8 +541,9 @@ img {
      border: 1px solid #006400;
     background-color: #f4f4f9;
     color: #0d1117;
-    transition: background 0.3s ease;
-}
+    transition: background 0.3s ease;      /* خلفية افتراضية */
+}    
+
 
 .choices button:hover {
     background-color: #006400;
