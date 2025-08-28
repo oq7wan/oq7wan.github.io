@@ -567,14 +567,14 @@ img {
 
 <audio id="boxSound" preload="auto" src="box_open.mp3"></audio>
 <h1>افتح الصندوق - لعبة مراجعة مصطلحات الجهاز الدوراني</h1>
-<h1> اختر صندوق عشوائي و سيظهر لك سؤال، في حال أجبت عنه إجابة صحيحة تحصل على 3 نقاط و في حال أجبت إجابة خاطئة تخسر نقطتين </h1>
+<h3> اختر صندوق عشوائي و سيظهر لك سؤال، في حال أجبت عنه إجابة صحيحة تحصل على 3 نقاط و في حال أجبت إجابة خاطئة تخسر نقطتين </h3>
+<div class="container" id="boxContainer"></div>
 <div class="question-area" id="questionArea" style="display:none;">
 <div class="question" id="questionText"></div>
 <div class="choices" id="choicesContainer"></div>
 </div>
 <div class="score" id="scoreDisplay">النقاط: 0</div>
-<div class="container" id="boxContainer"></div>
-
+  
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const cards = document.querySelectorAll('.section-card');
