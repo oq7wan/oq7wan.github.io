@@ -553,7 +553,28 @@ img {
     font-size: 22px;
     color: black;
     margin-top: 20px;
-}    
+}   
+
+ .scoreboard {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 20px auto;
+    font-size: 20px;
+    font-weight: bold;
+  } 
+
+   .team-score {
+    background: #a9dba9;
+    border: 2px solid #006400;
+    border-radius: 10px;
+    padding: 10px 20px;
+    min-width: 150px;
+  }
+  .team-active {
+    background: #006400;
+    color: white;
+  }  
 
   </style>
 
@@ -589,6 +610,11 @@ img {
 <div class="choices" id="choicesContainer"></div>
 </div>
 <div class="score" id="scoreDisplay">النقاط: 0</div>
+
+<div class="scoreboard">
+  <div id="team2Score" class="team-score">فريق 2: 0</div>
+  <div id="team1Score" class="team-score">فريق 1: 0</div>
+</div>   
   
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -708,48 +734,84 @@ function scrollToTop() {
   {question: "ما الاستجابة المبالغ فيها لمواد غير ضارة مثل الغبار أو الطعام وتسبب الحساسية؟", choices: ["أمراض الحساسية", "المناعة السلبية", "المناعة الذاتية", "المناعة المكتسبة"], correct: 0}
 ];
 
-    let score = 0;
-    const boxContainer = document.getElementById("boxContainer");
-    const questionArea = document.getElementById("questionArea");
-    const questionText = document.getElementById("questionText");
-    const choicesContainer = document.getElementById("choicesContainer");
-    const scoreDisplay = document.getElementById("scoreDisplay");
+ let team1Score = 0;
+ let team2Score = 0;
+ let currentTeam = 1; // 1 or 2
 
-    for (let i = 0; i < questions.length; i++) {
-        const box = document.createElement("div");
-        box.className = "box";
-        box.innerText = `صندوق ${i + 1}`;
-        box.dataset.index = i % questions.length;
-        box.onclick = function () {
-            showQuestion(this);
-        };
-        boxContainer.appendChild(box);
-    }
+ const boxContainer = document.getElementById("boxContainer");
+ const questionArea = document.getElementById("questionArea");
+ const questionText = document.getElementById("questionText");
+ const choicesContainer = document.getElementById("choicesContainer");
+ const team1Display = document.getElementById("team1Score");
+ const team2Display = document.getElementById("team2Score");
 
-    function showQuestion(boxElement) {
-        const index = parseInt(boxElement.dataset.index);
-        const q = questions[index];
-        questionText.innerText = q.question;
-        choicesContainer.innerHTML = "";
+ updateActiveTeam();
 
-        q.choices.forEach((choice, i) => {
-            const btn = document.createElement("button");
-            btn.innerText = choice;
-            btn.onclick = function () {
-                if (i === q.correct) {
-                    score += 3;
-                } else {
-                    score -= 2;
-                }
-                scoreDisplay.innerText = `النقاط: ${score}`;
-                boxElement.style.display = "none";
-                questionArea.style.display = "none";
-            };
-            choicesContainer.appendChild(btn);
-        });
+ for (let i = 0; i < questions.length; i++) {
+   const box = document.createElement("div");
+   box.className = "box";
+   box.innerText = `صندوق ${i + 1}`;
+   box.dataset.index = i;
+   box.onclick = function () {
+     showQuestion(this);
+   };
+   boxContainer.appendChild(box);
+ }
 
-        questionArea.style.display = "block";
-    }  
+ function showQuestion(boxElement) {
+   const index = parseInt(boxElement.dataset.index);
+   const q = questions[index];
+   questionText.innerText = q.question;
+   choicesContainer.innerHTML = "";
+
+    q.choices.forEach((choice, i) => {
+     const btn = document.createElement("button");
+     btn.innerText = choice;
+     btn.onclick = function () {
+       if (i === q.correct) {
+         if (currentTeam === 1) {
+           team1Score += 3;
+         } else {
+           team2Score += 3;
+         }
+       } else {
+         if (currentTeam === 1) {
+           team1Score -= 2;
+         } else {
+           team2Score -= 2;
+         }
+       }
+       updateScores();
+
+       // Hide the box and question area
+       boxElement.style.display = "none";
+       questionArea.style.display = "none";
+
+       // Switch turn
+       currentTeam = (currentTeam === 1) ? 2 : 1;
+       updateActiveTeam();
+     };
+     choicesContainer.appendChild(btn);
+   });
+
+   questionArea.style.display = "block";
+ }
+
+ function updateScores() {
+   team1Display.innerText = `فريق 1: ${team1Score}`;
+   team2Display.innerText = `فريق 2: ${team2Score}`;
+ }
+
+ function updateActiveTeam() {
+   if (currentTeam === 1) {
+     team1Display.classList.add("team-active");
+     team2Display.classList.remove("team-active");
+   } else {
+     team2Display.classList.add("team-active");
+     team1Display.classList.remove("team-active");
+   }
+ } 
+  
 
 </script>
 
