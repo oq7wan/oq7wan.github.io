@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html lang="ar">
+<head>
+<meta charset="utf-8"/>
+<title>افتح الصندوق - مراجعة الأحياء</title>
+<style>
+body {
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    text-align: center;
+    background-color: #0d1117;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #00ffcc;
+    margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.box {
+    width: 120px;
+    height: 120px;
+    background-color: #161b22;
+    color: #00ffcc;
+    margin: 10px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 15px;
+    border: 2px solid #00ffcc;
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    background-color: #00ffcc;
+    color: #0d1117;
+    transform: scale(1.05);
+}
+
+.question-area {
+    margin-top: 20px;
+    background: #161b22;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #00ffcc;
+    display: inline-block;
+}
+
+.question {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.choices button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background-color: #00ffcc;
+    color: #0d1117;
+    transition: background 0.3s ease;
+}
+
+.choices button:hover {
+    background-color: #00ccaa;
+}
+
+.score {
+    font-size: 22px;
+    color: #00ffcc;
+    margin-top: 20px;
+}
+</style>
+</head>
+<body><audio id="boxSound" preload="auto" src="box_open.mp3"></audio>
+<h1>افتح الصندوق - مراجعة الأحياء</h1>
+<div class="container" id="boxContainer"></div>
+<div class="question-area" id="questionArea" style="display:none;">
+<div class="question" id="questionText"></div>
+<div class="choices" id="choicesContainer"></div>
+</div>
+<div class="score" id="scoreDisplay">النقاط: 0</div>
+<script>
+    const questions = [
+        {
+            question: "ما هو العضو المسؤول عن ضخ الدم في الجسم؟",
+            choices: ["الكبد", "القلب", "الرئتين", "الكلى"],
+            correct: 1
+        },
+        {
+            question: "ما هي وحدة بناء الكائنات الحية؟",
+            choices: ["الخلية", "الأنسجة", "الأعضاء", "الأجهزة"],
+            correct: 0
+        },
+        {
+            question: "أين يحدث البناء الضوئي؟",
+            choices: ["في الجذور", "في الأوراق", "في الساق", "في الزهرة"],
+            correct: 1
+        },
+        {
+            question: "ما هو الغاز الذي تحتاجه النباتات للبناء الضوئي؟",
+            choices: ["الأكسجين", "النيتروجين", "ثاني أكسيد الكربون", "الهيدروجين"],
+            correct: 2
+        },
+        {
+            question: "ما هو أكبر عضو في جسم الإنسان؟",
+            choices: ["القلب", "الكبد", "الجلد", "الرئتين"],
+            correct: 2
+        },
+        {
+            question: "ما هو دور كريات الدم البيضاء؟",
+            choices: ["نقل الأكسجين", "مكافحة الأمراض", "تجلط الدم", "تنظيم درجة الحرارة"],
+            correct: 1
+        },
+        {
+            question: "ما هو الجهاز المسؤول عن التنفس؟",
+            choices: ["الهضمي", "الدوري", "التنفسي", "العصبي"],
+            correct: 2
+        },
+        {
+            question: "ما هو العنصر الأساسي في تركيب البروتين؟",
+            choices: ["الكربون", "النيتروجين", "الهيدروجين", "الأحماض الأمينية"],
+            correct: 3
+        },
+        {
+            question: "ما هو عدد الكروموسومات في الإنسان؟",
+            choices: ["23", "46", "44", "22"],
+            correct: 1
+        },
+        {
+            question: "ما هو العضو الذي ينقي الدم؟",
+            choices: ["القلب", "الكلى", "الكبد", "الرئتين"],
+            correct: 1
+        }
+    ];
+
+    let score = 0;
+    const boxContainer = document.getElementById("boxContainer");
+    const questionArea = document.getElementById("questionArea");
+    const questionText = document.getElementById("questionText");
+    const choicesContainer = document.getElementById("choicesContainer");
+    const scoreDisplay = document.getElementById("scoreDisplay");
+
+    for (let i = 0; i < 30; i++) {
+        const box = document.createElement("div");
+        box.className = "box";
+        box.innerText = `صندوق ${i + 1}`;
+        box.dataset.index = i % questions.length;
+        box.onclick = function () {
+            showQuestion(this);
+        };
+        boxContainer.appendChild(box);
+    }
+
+    function showQuestion(boxElement) {
+        const index = parseInt(boxElement.dataset.index);
+        const q = questions[index];
+        questionText.innerText = q.question;
+        choicesContainer.innerHTML = "";
+
+        q.choices.forEach((choice, i) => {
+            const btn = document.createElement("button");
+            btn.innerText = choice;
+            btn.onclick = function () {
+                if (i === q.correct) {
+                    score += 3;
+                } else {
+                    score -= 2;
+                }
+                scoreDisplay.innerText = `النقاط: ${score}`;
+                boxElement.style.display = "none";
+                questionArea.style.display = "none";
+            };
+            choicesContainer.appendChild(btn);
+        });
+
+        questionArea.style.display = "block";
+    }
+</script>
+</body>
+</html>
