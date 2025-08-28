@@ -3,22 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <title> مراجعة قائمة مصطلحات الجهاز الدوراني </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/icon.png" type="image/png">
-  
-<!-- عنوان الموقع -->
-<title> أقحوان -  دروس أحياء مخصصة للمنهاج الفلسطيني </title>
-
-<!-- وصف الموقع لمحركات البحث -->
-<meta name="description" content="موقع أقحوان يقدم دروس وأدوات تفاعلية لتعلم مادة الأحياء لطلاب الصف العاشر والحادي عشر والثاني عشر بطريقة مبسطة ترتكز على التعلم الذاتي">
-
-<!-- كلمات مفتاحية -->
-<meta name="keywords" content=" أحياء, تعليم أحياء, أقحوان, أحياء ثانوي, أحياء توجيهي, أحياء علمي, خلايا, وراثة مندلية , من الجين إلى البروتين , نبات, إنسان, تصنيف الكائنات, الوراثة">
-
-<!-- الكاتب -->
-<meta name="author" content="أقحوان - Oq7wan Biology">
-
   <style>
     * {
       box-sizing: border-box;
@@ -87,29 +74,34 @@ nav a:hover {
 .section-card {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch; /* force same height */
   gap: 20px;
-  padding: 20px;
+  padding: 10px;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 18px auto;
 }
+
 
 
 /* Image side */
 .image-side {
   flex: 1;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .image-side img {
   max-width: 100%;
   height: auto;
   border-radius: 12px;
   transition: transform 0.3s ease;
+  margin: 0 auto;
 }
 
 .image-side img:hover {
@@ -117,18 +109,20 @@ nav a:hover {
   cursor: pointer;
 }
 
-/* Text side */
 .text-side {
   flex: 1;
-  direction: rtl;
-  text-align: right;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* This ensures spacing from top (h2) to bottom (lesson) */
+  padding: 24px 16px;
   background: linear-gradient(to top left, #f0fff0, #ffffff);
   border-radius: 12px;
   border-right: 5px solid #228B22;
   box-shadow: inset 0 0 10px rgba(0, 100, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: right;
+  min-height: 180px; /* adjust as needed for consistent height */
 }
+
 
 .text-side:hover {
   transform: scale(1.02);
@@ -136,16 +130,18 @@ nav a:hover {
 }
 
 .text-side h2 {
+  min-height: 40px;
+  margin-bottom: 12px;
   color: #006400;
-  font-size: 1.8em;
+  font-size: 1.1em;
   line-height: 1.5;
-  margin-bottom: 10px;
 }
 
+
 .text-side p {
-  font-size: 1.1em;
+  font-size: 1em;
   color: #333;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 
@@ -189,7 +185,7 @@ nav a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   opacity: 0;
   pointer-events: none;
@@ -213,10 +209,6 @@ nav a:hover {
 .image-hover-wrapper .hover-text.fade-out {
   opacity: 0;
 }
-
-
-
-
 
 
 /* Hover effect: zoom image and show text */
@@ -245,24 +237,6 @@ img {
     h2 {
       color: #006400;
       text-align: center;
-    }
-
-    .quiz-button {
-    margin-top: 1em;
-    padding: 0.75em 1.5em;
-    font-size: 1em;
-    background-color: #006400;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 400px;
-    font-family: 'Tajawal', sans-serif;
-   }
-
-    .quiz-button:hover {
-      background-color: #004d00;
     }
 
 /* Responsive */
@@ -299,7 +273,7 @@ img {
   }
 
   .hover-text {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
@@ -416,6 +390,76 @@ img {
   background-color: #004d00;
 }
 
+.sections-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 18px auto;
+  padding: 0 1em;
+}
+
+/* Adjust each card inside wrapper */
+.sections-wrapper .section-card {
+  flex: 1 1 calc(25% - 20px); /* 4 cards in a row with 20px gap */
+  margin: 0;
+  max-width: 100%;
+}
+
+/* On tablets: 2 cards per row */
+@media (max-width: 992px) {
+  .sections-wrapper .section-card {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+/* On small screens: 1 card per row */
+@media (max-width: 600px) {
+  .sections-wrapper {
+    flex-direction: column;
+  }
+  .sections-wrapper .section-card {
+    flex: 1 1 100%;
+  }
+}
+
+/* Force vertical stacking inside each card */
+.section-card.column-layout {
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+}
+
+.section-card.column-layout .text-side {
+  padding-top: 20px;
+  text-align: center; /* Optional: center align text on all devices */
+  border-right: none;
+  border-top: 5px solid #228B22;
+}
+
+
+.download-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #C8E6C9;
+  color: #006400;
+  font-size: 1em;
+  font-weight : bold;
+  text-decoration: none;
+  border-radius: 6px;
+  font-family: 'Tajawal', sans-serif;
+  transition: background-color 0.3s;
+}
+
+.download-button:hover {
+  background-color: #45a049;
+}
+
+.section-card.placeholder {
+  visibility: hidden;
+}
+
 .header-logo-text {
   display: flex;
   align-items: center;
@@ -426,6 +470,35 @@ img {
   width: 60px; /* يمكنك التعديل حسب حجم الصورة */
   height: auto;
   border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.box {
+    width: 120px;
+    height: 120px;
+    background-color: #161b22;
+    color: #00ffcc;
+    margin: 10px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 15px;
+    border: 2px solid #00ffcc;
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    background-color: #00ffcc;
+    color: #0d1117;
+    transform: scale(1.05);
 }
 
 .question-area {
@@ -465,7 +538,6 @@ img {
     margin-top: 20px;
 }    
 
-
   </style>
 
 </head>
@@ -477,7 +549,6 @@ img {
   </div>
 </header>
 
-
   <nav>
   <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
@@ -485,14 +556,14 @@ img {
     <span></span>
   </button>
 
-  <span class="nav-current">الرئيسية</span>
-  <a href="12th grade Interface.html" target="_blank"> الصف الثاني عشر العلمي</a>
-  <a href="11th grade Interface.html" target="_blank">الصف الحادي عشر العلمي </a>
+  <span class="nav-current"> لعبة مراجعة </span>
+  <a href="index.html" target="_blank">الرئيسية</a>
+  <a href="12th grade Interface.html" target="_blank">الصف الثاني عشر العلمي</a>
+  <a href="11th grade Interface.html" target="_blank">الصف الحادي عشر العلمي</a>
   <a href="10th grade Interface.html" target="_blank">الصف العاشر</a>
 </nav>
 
-</head>
-<body><audio id="boxSound" preload="auto" src="box_open.mp3"></audio>
+<audio id="boxSound" preload="auto" src="box_open.mp3"></audio>
 <h1>افتح الصندوق - مراجعة الأحياء</h1>
 <div class="container" id="boxContainer"></div>
 <div class="question-area" id="questionArea" style="display:none;">
@@ -500,8 +571,81 @@ img {
 <div class="choices" id="choicesContainer"></div>
 </div>
 <div class="score" id="scoreDisplay">النقاط: 0</div>
+
+
 <script>
-    const questions = [
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.section-card');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    cards.forEach(card => observer.observe(card));
+  });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hoverWrappers = document.querySelectorAll('.image-hover-wrapper');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const wrapper = entry.target;
+          const overlay = wrapper.querySelector('.hover-text');
+
+          wrapper.classList.add('scroll-visible');
+
+          // Remove any previous fade-out
+          overlay.classList.remove('fade-out');
+
+          // Start timer to fade out
+          setTimeout(() => {
+            overlay.classList.add('fade-out');
+          }, 1000); // 1000ms = 1 seconds
+
+          observer.unobserve(wrapper); // optional: animate once
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    hoverWrappers.forEach(wrapper => {
+      observer.observe(wrapper);
+    });
+  });
+
+const nav = document.querySelector('nav');
+  const hamburger = document.querySelector('.hamburger');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+
+    // Update aria-expanded for accessibility
+    const expanded = hamburger.classList.contains('active');
+    hamburger.setAttribute('aria-expanded', expanded);
+  });
+
+function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+</script>
+
+ const questions = [
     {question: "أي عضو يعمل كمضخة لدفع الدم في الجسم؟", choices: ["الكبد", "القلب", "الرئتان", "الكلية"], correct: 1},
     {question: "ما الغشاء الرقيق الذي يحيط بالقلب ويقلل الاحتكاك عند الانقباض والانبساط؟", choices: ["غشاء التامور", "الغشاء البلازمي", "غشاء الجنب", "الغشاء البريتوني"], correct: 0},
     {question: "ما الشريان الذي ينقل الدم الغني بالأكسجين من البطين الأيسر إلى جميع أجزاء الجسم؟", choices: ["الشريان الرئوي", "الشريان التاجي", "الشريان الأبهر", "الوريد الأجوف العلوي"], correct: 2},
@@ -595,7 +739,25 @@ img {
         });
 
         questionArea.style.display = "block";
-    }
-</script>
+    }  
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
+    </div>
+    <div class="footer-text">
+      <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
+    </div>
+    <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
+  </div>
+</footer>
+
+
 </body>
+
 </html>
+
+
+
+
