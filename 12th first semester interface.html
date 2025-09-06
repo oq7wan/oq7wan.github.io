@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الفصل الأول الصف 12 علمي</title>
+  <title> 12 علمي </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/icon.png" type="image/png">
   <style>
@@ -75,29 +75,34 @@ nav a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 14px;
-  padding: 12px;
+  gap: 12px;                   /* smaller space between image/text */
+  padding: 10px 14px;          /* reduce vertical padding */
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
-  margin: 20px auto;
+  max-width: 800px;
+  margin: 20px auto;           /* reduce vertical margin between cards */
 }
+
 
 
 /* Image side */
 .image-side {
+  padding : 10px;
   flex: 1;
   text-align: center;
 }
 
 .image-side img {
-  max-width: 100%;
-  height: auto;
+  width: auto;
+  height: 150px; /* force all section images to the same height */
+  object-fit: contain; /* maintain image aspect ratio */
   border-radius: 12px;
-  transition: transform 0.3s ease;
 }
+
+
+
 
 .image-side img:hover {
   transform: scale(1.05);
@@ -109,7 +114,7 @@ nav a:hover {
   flex: 1;
   direction: rtl;
   text-align: right;
-  padding: 20px;
+  padding: 12px;
   background: linear-gradient(to top left, #f0fff0, #ffffff);
   border-radius: 12px;
   border-right: 5px solid #228B22;
@@ -124,9 +129,15 @@ nav a:hover {
 
 .text-side h2 {
   color: #006400;
-  font-size: 1.2em;
-  line-height: 1;
-  margin-bottom: 8px;
+  font-size: 1.3em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.text-side p {
+  font-size: 1.1em;
+  color: #333;
+  line-height: 1.7;
 }
 
 
@@ -170,7 +181,7 @@ nav a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   opacity: 0;
   pointer-events: none;
@@ -194,6 +205,10 @@ nav a:hover {
 .image-hover-wrapper .hover-text.fade-out {
   opacity: 0;
 }
+
+
+
+
 
 
 /* Hover effect: zoom image and show text */
@@ -224,6 +239,23 @@ img {
       text-align: center;
     }
 
+    .quiz-button {
+    margin-top: 1em;
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+    background-color: #006400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 400px;
+    font-family: 'Tajawal', sans-serif;
+   }
+
+    .quiz-button:hover {
+      background-color: #004d00;
+    }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -376,55 +408,6 @@ img {
   background-color: #004d00;
 }
 
-.sections-wrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 0.5em;
-}
-
-/* Adjust each card inside wrapper */
-.sections-wrapper .section-card {
-  flex: 1 1 calc(33.333% - 20px); /* 3 cards in a row with 20px gap */
-  margin: 0;
-  max-width: 100%;
-}
-
-/* On tablets: 2 cards per row */
-@media (max-width: 992px) {
-  .sections-wrapper .section-card {
-    flex: 1 1 calc(50% - 20px);
-  }
-}
-
-/* On small screens: 1 card per row */
-@media (max-width: 600px) {
-  .sections-wrapper {
-    flex-direction: column;
-  }
-  .sections-wrapper .section-card {
-    flex: 1 1 100%;
-  }
-}
-
-/* Force vertical stacking inside each card */
-.section-card.column-layout {
-  flex-direction: column;
-  align-items: stretch;
-  text-align: center;
-}
-
-.section-card.column-layout .text-side {
-  padding-top: 20px;
-  text-align: center; /* Optional: center align text on all devices */
-  border-right: none;
-  border-top: 5px solid #228B22;
-}
-
-    
 .header-logo-text {
   display: flex;
   align-items: center;
@@ -436,9 +419,8 @@ img {
   height: auto;
   border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
 }
-
-
-  </style>
+  
+</style>
 
 </head>
 <body>
@@ -449,26 +431,26 @@ img {
   </div>
 </header>
 
-  <nav>
+ <nav>
   <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span>
     <span></span>
     <span></span>
   </button>
 
-  <span class="nav-current"> الصف الثاني عشر العلمي </span>
+  <span class="nav-current"> الصف الثاني عشر العلمي</span>
   <a href="index.html" target="_blank">الرئيسية</a>
   <a href="11th grade Interface.html" target="_blank"> الصف الحادي عشر العلمي</a>
   <a href="10th grade Interface.html" target="_blank">الصف العاشر</a>
 </nav>
 
-<div class="sections-wrapper">
-<div class="section-card column-layout">
+
+  <div class="section-card">
   <!-- Left side: Image -->
   <div class="image-side">
   <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
-    <a href="12th grade unit1 interface.html" target="_blank">
-    <img src="images/semester.png" alt="school students performing exam">
+   <a href="12th grade unit1 interface.html" target="_blank">
+    <img src="images/semester.png" alt="Biology book with fungi,DNA, and plant illustrations">
     <div class="hover-text"> اضغط هنا </div>
     </a>
   </div>
@@ -476,17 +458,17 @@ img {
 
   <!-- Right side: Text -->
   <div class="text-side">
-    <h2> الوحدة الأولى : عمليات حيوية في الخلية </h2>
+     <h2> الوحدة الأولى : عمليات حيوية في الخلية </h2>
   </div>
 </div>
 
 
-<div class="section-card column-layout">
+<div class="section-card">
   <!-- Left side: Image -->
   <div class="image-side">
   <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
     <a href="12th grade unit2 interface.html" target="_blank">
-    <img src="images/semester.png" alt="school students performing exam">
+    <img src="images/semester.png" alt="biology book with fungi, DNA, and plant illustrations">
     <div class="hover-text"> اضغط هنا </div>
     </a>
   </div>
@@ -494,13 +476,9 @@ img {
 
   <!-- Right side: Text -->
   <div class="text-side">
-    <h2> الوحدة الثانية : الوراثة </h2>
+        <h2> الوحدة الثانية : الوراثة </h2>
   </div>
 </div>
-
-</div> <!--end of sections-wraper-->
-
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -579,7 +557,7 @@ function scrollToTop() {
     <div class="footer-logo">
       <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
     </div>
-    <div class="footer-text">
+     <div class="footer-text">
       <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
     </div>
     <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
@@ -588,7 +566,6 @@ function scrollToTop() {
 
 
 </body>
-
 </html>
 
 
