@@ -823,28 +823,22 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الم�
     scrollToTop();
     
 // إرسال البيانات إلى Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbwXLO_41mmA2LAzgZKTMQqgHYTSBVd8WEvK0gfJEvAFDSY5U1ppHnt-IFqUSP624n5W/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name: studentName,
-    school: studentSchool,
-    gender: studentGender,
-    score: score
-  })
-})
-.then(response => response.text())
-.then(result => {
-  console.log("تم الإرسال:", result);
-})
-.catch(error => {
-  console.error("فشل الإرسال:", error);
-});
+ const scriptURL =                       
+      "https://script.google.com/macros/s/AKfycbwXLO_41mmA2LAzgZKTMQqgHYTSBVd8WEvK0gfJEvAFDSY5U1ppHnt-IFqUSP624n5W/exec";
+      const form = document.forms["9th test results"];
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        var formData = new FormData(form);
 
-
-  };
+        fetch(scriptURL, { method: "POST", body: formData })
+          .then((response) => {
+            swal("Done", "Submitted Successfully.", "success");
+          })
+          .catch((error) => {
+            swal("Error", "Something went wrong. please try again!", "error");
+          });
+      });
+    
 
   updateDisplay();
 
@@ -909,6 +903,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
