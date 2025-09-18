@@ -789,31 +789,6 @@ function updateNavigator() {
     document.getElementById('resultSection').style.display = 'block'; // show feedback
     scrollToTop();
     
-// إرسال البيانات إلى Google Sheet
-const rowId = localStorage.getItem("rowId");
-
-fetch("https://script.google.com/macros/s/AKfycbz85QeYarH817s1dPcYUYkvxWThb1LMg-YqZCcOlcaQToj-ThslPU5cF7tlgbypvPdw4g/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    action: "updateScore",
-    rowId: rowId,
-    score: score
-  })
-})
-.then(response => response.text())
-.then(result => {
-  console.log("تم تحديث النتيجة:", result);
-})
-.catch(error => {
-  console.error("فشل التحديث:", error);
-});
-
-
-
-  };
 
   updateDisplay();
 
@@ -851,10 +826,30 @@ const loginSection = document.getElementById('loginSection');
 const quizSection = document.querySelector('main');
 const loginForm = document.getElementById('loginForm');
 
+const rowId = localStorage.getItem("rowId");
+
+fetch("YOUR_SCRIPT_URL", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    action: "updateScore",
+    rowId: rowId,
+    score: score
+  })
+})
+.then(response => response.text())
+.then(result => {
+  console.log("تم تحديث النتيجة:", result);
+})
+.catch(error => {
+  console.error("فشل التحديث:", error);
+});
+    
 </script>
 
 </body>
 </html>
+
 
 
 
