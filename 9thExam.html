@@ -824,7 +824,9 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الم�
 // إرسال البيانات إلى Google Sheet
 fetch("https://script.google.com/macros/s/AKfycbyBT2gZuYjTWJOpVAlYKBAK34jCkvYl0khIiBDlwis5BMSSHXecxzzHMwMu7v736uM/exec", {
   method: "POST",
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json"
+  },
   body: JSON.stringify({
     name: studentName,
     school: studentSchool,
@@ -835,12 +837,13 @@ fetch("https://script.google.com/macros/s/AKfycbyBT2gZuYjTWJOpVAlYKBAK34jCkvYl0k
 .then(response => response.text())
 .then(result => {
   console.log("تم الإرسال:", result);
-  alert("✅ تم إرسال البيانات إلى Google Sheet");
 })
 .catch(error => {
   console.error("فشل الإرسال:", error);
-  alert("⚠️ لم يتم إرسال البيانات، تحقق من الكود");
 });
+
+
+  };
 
   updateDisplay();
 
@@ -905,5 +908,3 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
-
-
