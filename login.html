@@ -667,63 +667,82 @@ nav a:hover {
   </div> 
 </div>  
 
-    <script>
-      const scriptURL =                       
-      "https://script.google.com/macros/s/AKfycbzZDeK8S7ImT0_BXAbZ1DCV8zoaPvKXbD1Hph4C0jTFicsExyoOgla1iOuJeEJKVCJT/exec";
-      const form = document.forms["loginForm"];
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        var formData = new FormData(form);
-        
+<script>
+(function () {
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzZDeK8S7ImT0_BXAbZ1DCV8zoaPvKXbD1Hph4C0jTFicsExyoOgla1iOuJeEJKVCJT/exec";
+  const form = document.getElementById('loginForm');
 
-  fetch(scriptURL, { method: "POST", body: formData })
-  .then((response) => {
-    swal("تم", "نجحت عملية تسجيل الدخول", "success")
+  if (!form) return console.error('Form with id "loginForm" not found.');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('studentName').value.trim();
+    const school = document.getElementById('studentSchool').value.trim();
+    const gender = document.getElementById('studentGender').value;
+
+    if (!name || !school || !gender) {
+      if (window.Swal && Swal.fire) {
+        Swal.fire({ title: 'تنبيه', text: 'يرجى إدخال الاسم و المدرسة و الجنس', icon: 'warning', confirmButtonText: 'موافق' });
+      } else {
+        alert('يرجى إدخال الاسم و المدرسة و الجنس');
+      }
+      return;
+    }
+
+    // optional: keep local copy
+    localStorage.setItem("studentName", name);
+    localStorage.setItem("studentSchool", school);
+    localStorage.setItem("studentGender", gender);
+
+    const formData = new FormData(form);
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not OK');
+
+        // If SweetAlert2 (Swal.fire) exists -> use it (returns a promise)
+        if (window.Swal && typeof Swal.fire === 'function') {
+          return Swal.fire({
+            title: 'تم',
+            text: 'نجحت عملية تسجيل الدخول',
+            icon: 'success',
+            confirmButtonText: 'موافق'
+          });
+        }
+
+        // If old swal() exists and returns a promise, use it
+        if (typeof swal === 'function') {
+          try {
+            const maybePromise = swal('تم', 'نجحت عملية تسجيل الدخول', 'success');
+            if (maybePromise && typeof maybePromise.then === 'function') {
+              return maybePromise;
+            }
+          } catch (err) {
+            /* continue to fallback */
+          }
+        }
+
+        // fallback to blocking alert (waits until user clicks OK)
+        alert('تم\nنجحت عملية تسجيل الدخول');
+        return Promise.resolve();
+      })
       .then(() => {
-        // Redirect to the exam page after user clicks OK
-        window.location.href = "9thExam.html";
+        // redirect after the student clicked OK on the popup
+        window.location.href = 'exam.html'; // <-- change this to your actual exam page filename/path
+      })
+      .catch(err => {
+        console.error(err);
+        if (window.Swal && typeof Swal.fire === 'function') {
+          Swal.fire({ title: 'خطأ', text: 'حدث خطأ ما، حاول تسجيل الدخول مجدداً !', icon: 'error', confirmButtonText: 'حسناً' });
+        } else {
+          alert('حدث خطأ ما، حاول تسجيل الدخول مجدداً !');
+        }
       });
-  })
-  .catch((error) => {
-    swal("خطأ", "حدث خطأ ما، حاول تسجيل الدخول مجدداً !", "error");
   });
-
-
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  const hamburger = document.querySelector('.hamburger');
-  const nav = document.querySelector('nav');
-
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('open');
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !expanded);
-  });
-
-
-loginForm.onsubmit = function (e) {
-  e.preventDefault();
-  const name = document.getElementById('studentName').value.trim();
-  const school = document.getElementById('studentSchool').value;
-  const gender = document.getElementById('studentGender').value;
-  
-  if (!name || !school || !gender) {
-    alert("يرجى إدخال الاسم و المدرسة و الجنس");
-    return;
-  }
-
-  // Optionally store in localStorage
-  localStorage.setItem("studentName", name);
-  localStorage.setItem("studentSchool", school);
-  localStorage.setItem("studentGender", gender);
-  scrollToTop();
-};
-
+})();
 </script>
+
 
 <footer class="site-footer">
   <div class="footer-content">
