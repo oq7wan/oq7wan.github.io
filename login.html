@@ -677,17 +677,9 @@ nav a:hover {
         var formData = new FormData(form);
         
 
-  fetch(scriptURL, { method: "POST", body: formData })
-  .then((response) => {
-    swal("تم", "نجحت عملية تسجيل الدخول", "success")
-      .then(() => {
-        // Redirect to the exam page
-        window.location.href = "9thExam.html";
-      });
-  })
-  .catch((error) => {
-    swal("خطأ", "حدث خطأ ما، حاول تسجيل الدخول مجدداً !", "error");
-  });
+  fetch(scriptURL, { method: "POST", body: formData }) 
+    .then((response) => { swal("تم", "نجحت عملية تسجيل الدخول", "success"); })
+    .catch((error) => { swal("خطأ", "حدث خطأ ما، حاول تسجيل الدخول مجدداً !", "error"); }); });
 
 
 
