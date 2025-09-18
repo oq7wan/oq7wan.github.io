@@ -697,40 +697,23 @@ nav a:hover {
 
     const formData = new FormData(form);
 
-    fetch(scriptURL, { method: 'POST', body: formData })
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not OK');
+fetch("https://script.google.com/macros/s/AKfycby6eK5FM8fTEklOKt7vh-8hpHOnIPBuWRCQ33lQeLq9gz_EiY6wOksZd8R1SaYrpEoXbg/exec", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    name: name,
+    school: school,
+    gender: gender,
+    action: "register"
+  })
+})
+.then(res => res.json())
+.then(data => {
+  // Save row ID in localStorage
+  localStorage.setItem("rowId", data.rowId);
+  window.location.href = "9thExam.html";
+});
 
-        // If SweetAlert2 (Swal.fire) exists -> use it (returns a promise)
-        if (window.Swal && typeof Swal.fire === 'function') {
-          return Swal.fire({
-            title: 'تم',
-            text: 'نجحت عملية تسجيل الدخول',
-            icon: 'success',
-            confirmButtonText: 'موافق'
-          });
-        }
-
-        // If old swal() exists and returns a promise, use it
-        if (typeof swal === 'function') {
-          try {
-            const maybePromise = swal('تم', 'نجحت عملية تسجيل الدخول', 'success');
-            if (maybePromise && typeof maybePromise.then === 'function') {
-              return maybePromise;
-            }
-          } catch (err) {
-            /* continue to fallback */
-          }
-        }
-
-        // fallback to blocking alert (waits until user clicks OK)
-        alert('تم\nنجحت عملية تسجيل الدخول');
-        return Promise.resolve();
-      })
-      .then(() => {
-        // redirect after the student clicked OK on the popup
-        window.location.href = "9thExam.html";
-      })
       .catch(err => {
         console.error(err);
         if (window.Swal && typeof Swal.fire === 'function') {
