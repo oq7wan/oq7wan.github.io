@@ -664,12 +664,12 @@ nav a:hover {
       
       <button type="submit">بدء الاختبار</button>
     </form>
-  </div>
+  </div> 
+</div>
 
- <body class="bg-light">
+<body class="bg-light">
     <div class="container">
       <div class="form-container">
-        <h4 class="text-center mb-4">Form Submission to Google Sheet</h4>
         <form id="submit-to-google-sheet">
           <div class="form-group">
             <label for="name">Name:</label>
@@ -740,14 +740,12 @@ nav a:hover {
           </button>
         </form>
       </div>
-    </div> 
-  
-</div>
+    </div>   
 
     <script>
       const scriptURL =                       
       "https://script.google.com/macros/s/AKfycbzZDeK8S7ImT0_BXAbZ1DCV8zoaPvKXbD1Hph4C0jTFicsExyoOgla1iOuJeEJKVCJT/exec";
-      const form = document.forms["submit-to-google-sheet"];
+      const form = document.forms["loginForm"];
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         var formData = new FormData(form);
