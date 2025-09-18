@@ -649,13 +649,12 @@ nav a:hover {
 
 document.getElementById('quizForm').onsubmit = function (e) {
     e.preventDefault();
-    let score = 0;
     const studentName = localStorage.getItem("studentName") || "";
     const studentSchool = localStorage.getItem("studentSchool") || "";
     const studentGender = localStorage.getItem("studentGender") || "";
     
 // إرسال البيانات إلى Google Sheet
-fetch("https://script.google.com/macros/s/AKfycby6eK5FM8fTEklOKt7vh-8hpHOnIPBuWRCQ33lQeLq9gz_EiY6wOksZd8R1SaYrpEoXbg/exec", {
+fetch("https://script.google.com/macros/s/AKfycbwzJoEBqXySrMwZ59qrGkh2mB0jj3jlyoy7lpZBBK2Jm3HIZ9cmLNN01sdxnJy5Qnly/exec", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -664,7 +663,6 @@ fetch("https://script.google.com/macros/s/AKfycby6eK5FM8fTEklOKt7vh-8hpHOnIPBuWR
     name: studentName,
     school: studentSchool,
     gender: studentGender,
-    score: score
   })
 })
 .then(response => response.text())
