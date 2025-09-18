@@ -6,12 +6,6 @@
   <title> اختبار مستوى </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/icon.png" type="image/png">
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-  
   <style>
 
     * {
@@ -827,6 +821,30 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الم�
     document.getElementById('resultSection').style.display = 'block'; // show feedback
     scrollToTop();
     
+// إرسال البيانات إلى Google Sheet
+fetch("https://script.google.com/macros/s/AKfycby6eK5FM8fTEklOKt7vh-8hpHOnIPBuWRCQ33lQeLq9gz_EiY6wOksZd8R1SaYrpEoXbg/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: studentName,
+    school: studentSchool,
+    gender: studentGender,
+    score: score
+  })
+})
+.then(response => response.text())
+.then(result => {
+  console.log("تم الإرسال:", result);
+})
+.catch(error => {
+  console.error("فشل الإرسال:", error);
+});
+
+
+  };
+
   updateDisplay();
 
   let totalSeconds = 600;
@@ -886,49 +904,7 @@ loginForm.onsubmit = function (e) {
   scrollToTop();
 };
 
-// إرسال البيانات إلى Google Sheet
- const scriptURL =                       
-      "https://script.google.com/macros/s/AKfycbwXLO_41mmA2LAzgZKTMQqgHYTSBVd8WEvK0gfJEvAFDSY5U1ppHnt-IFqUSP624n5W/exec";
-      const form = document.forms["9th test results"];
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        var formData = new FormData(form);
-
-        fetch(scriptURL, { method: "POST", body: formData })
-          .then((response) => {
-            swal("Done", "Submitted Successfully.", "success");
-          })
-          .catch((error) => {
-            swal("Error", "Something went wrong. please try again!", "error");
-          });
-      });    
-    
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
