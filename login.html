@@ -647,52 +647,26 @@ nav a:hover {
   
 <script>
 
-document.getElementById('quizForm').onsubmit = function (e) {
-    e.preventDefault();
-    const studentName = localStorage.getItem("studentName") || "";
-    const studentSchool = localStorage.getItem("studentSchool") || "";
-    const studentGender = localStorage.getItem("studentGender") || "";
-    
-// إرسال البيانات إلى Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbwzJoEBqXySrMwZ59qrGkh2mB0jj3jlyoy7lpZBBK2Jm3HIZ9cmLNN01sdxnJy5Qnly/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name: studentName,
-    school: studentSchool,
-    gender: studentGender,
-  })
-})
-.then(response => response.text())
-.then(result => {
-  console.log("تم الإرسال:", result);
-})
-.catch(error => {
-  console.error("فشل الإرسال:", error);
-});
+ const scriptURL =                       
+      "https://script.google.com/macros/s/AKfycbwzJoEBqXySrMwZ59qrGkh2mB0jj3jlyoy7lpZBBK2Jm3HIZ9cmLNN01sdxnJy5Qnly/exec";
+      const form = document.forms["login sheet"];
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        var formData = new FormData(form);
+        var ex = document.getElementById("ex").checked;
+        var age = document.getElementById("age").checked;
 
 
-  };
+        fetch(scriptURL, { method: "POST", body: formData })
+          .then((response) => {
+            swal("Done", "Submitted Successfully.", "success");
+          })
+          .catch((error) => {
+            swal("Error", "Something went wrong. please try again!", "error");
+          });
+      });
 
-  updateDisplay();
-
-  let totalSeconds = 600;
-  const timer = document.getElementById("timer");
-  const alertSound = document.getElementById("alertSound");
-
-  const interval = setInterval(() => {
-    totalSeconds--;
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    timer.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-    if (totalSeconds === 60) alertSound.play();
-    if (totalSeconds <= 0) {
-      clearInterval(interval);
-      document.getElementById('quizForm').dispatchEvent(new Event('submit'));
-    }
-  }, 1000);
+  
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
