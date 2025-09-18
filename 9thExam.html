@@ -612,38 +612,6 @@ nav a:hover {
   <a href="10th grade Interface.html" target="_blank">الصف العاشر</a>
 </nav>
 
-
-<div id="loginSection" class="section-card">
-  <div class="image-side">
-    <div class="image-hover-wrapper">
-    <img src="images/exam.png" alt="students performing computerized exam">
-    <div class="hover-text"> استعد </div>
-  </div>
-  </div>
-
-  <div class="text-side">
-    <h2>تسجيل الدخول لاختبار مستوى المعرفة بعلم الأحياء</h2>
-    <form id="loginForm">
-      <label for="studentName"> الاسم الكامل :</label>
-      <input type="text" id="studentName" name="studentName" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-
-      <label for="studentSchool"> اسم المدرسة :</label>
-      <input type="text" id="studentSchool" name="studentSchool" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-
-      <label for="studentGender"> الجنس : </label>
-       <select id="studentGender" name="studentGender" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-        <option value="">-- --</option>
-        <option value="ذكر"> ذكر </option>
-        <option value="أنثى"> أنثى  </option>
-      </select>
-      
-      <button type="submit">بدء الاختبار</button>
-    </form>
-  </div>
-  
-</div>
-
-
 <main>
 
 <div class="section-card" id="quizCard">
@@ -881,30 +849,8 @@ const loginSection = document.getElementById('loginSection');
 const quizSection = document.querySelector('main');
 const loginForm = document.getElementById('loginForm');
 
-quizSection.style.display = 'none'; // hide quiz until login
-
-loginForm.onsubmit = function (e) {
-  e.preventDefault();
-  const name = document.getElementById('studentName').value.trim();
-  const school = document.getElementById('studentSchool').value;
-  const gender = document.getElementById('studentGender').value;
-  
-  if (!name || !school || !gender) {
-    alert("يرجى إدخال الاسم و المدرسة و الجنس");
-    return;
-  }
-
-  // Optionally store in localStorage
-  localStorage.setItem("studentName", name);
-  localStorage.setItem("studentSchool", school);
-  localStorage.setItem("studentGender", gender);
-
-  loginSection.style.display = 'none';
-  quizSection.style.display = 'block';
-  scrollToTop();
-};
-
 </script>
 
 </body>
 </html>
+
