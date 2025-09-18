@@ -697,22 +697,24 @@ nav a:hover {
 
     const formData = new FormData(form);
 
-fetch("https://script.google.com/macros/s/AKfycby6eK5FM8fTEklOKt7vh-8hpHOnIPBuWRCQ33lQeLq9gz_EiY6wOksZd8R1SaYrpEoXbg/exec", {
+fetch("YOUR_SCRIPT_URL", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    name: name,
-    school: school,
-    gender: gender,
-    action: "register"
+    action: "register",
+    name: document.getElementById("name").value,
+    school: document.getElementById("school").value,
+    gender: document.getElementById("gender").value
   })
 })
 .then(res => res.json())
 .then(data => {
-  // Save row ID in localStorage
+  // تخزين رقم الصف
   localStorage.setItem("rowId", data.rowId);
+  // بعد تسجيل الدخول ينتقل للامتحان
   window.location.href = "9thExam.html";
 });
+
 
       .catch(err => {
         console.error(err);
