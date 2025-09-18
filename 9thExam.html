@@ -790,25 +790,27 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الم�
     scrollToTop();
     
 // إرسال البيانات إلى Google Sheet
+const rowId = localStorage.getItem("rowId");
+
 fetch("https://script.google.com/macros/s/AKfycby6eK5FM8fTEklOKt7vh-8hpHOnIPBuWRCQ33lQeLq9gz_EiY6wOksZd8R1SaYrpEoXbg/exec", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    name: studentName,
-    school: studentSchool,
-    gender: studentGender,
+    action: "updateScore",
+    rowId: rowId,
     score: score
   })
 })
 .then(response => response.text())
 .then(result => {
-  console.log("تم الإرسال:", result);
+  console.log("تم تحديث النتيجة:", result);
 })
 .catch(error => {
-  console.error("فشل الإرسال:", error);
+  console.error("فشل التحديث:", error);
 });
+
 
 
   };
@@ -853,5 +855,6 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
 
 
