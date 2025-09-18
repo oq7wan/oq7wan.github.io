@@ -678,10 +678,10 @@ nav a:hover {
     e.preventDefault();
 
     const name = document.getElementById('studentName').value.trim();
-    const school = document.getElementById('studentSchool').value.trim();
+    const studentSchool = document.getElementById('studentSchool').value.trim();
     const gender = document.getElementById('studentGender').value;
 
-    if (!name || !school || !gender) {
+    if (!name || !studentSchool || !gender) {
       if (window.Swal && Swal.fire) {
         Swal.fire({ title: 'تنبيه', text: 'يرجى إدخال الاسم و المدرسة و الجنس', icon: 'warning', confirmButtonText: 'موافق' });
       } else {
@@ -692,7 +692,7 @@ nav a:hover {
 
     // optional: keep local copy
     localStorage.setItem("studentName", name);
-    localStorage.setItem("studentSchool", school);
+    localStorage.setItem("studentSchool", studentSchool);
     localStorage.setItem("studentGender", gender);
 
     const formData = new FormData(form);
@@ -703,7 +703,7 @@ fetch("YOUR_SCRIPT_URL", {
   body: JSON.stringify({
     action: "register",
     name: document.getElementById("name").value,
-    school: document.getElementById("school").value,
+    studentSchool: document.getElementById("school").value,
     gender: document.getElementById("gender").value
   })
 })
