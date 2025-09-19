@@ -677,11 +677,11 @@ nav a:hover {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const name = document.getElementById('studentName').value.trim();
-    const school = document.getElementById('studentSchool').value.trim();
-    const gender = document.getElementById('studentGender').value;
+    const studentName = document.getElementById('studentName').value.trim();
+    const studentSchool = document.getElementById('studentSchool').value.trim();
+    const studentGender = document.getElementById('studentGender').value;
 
-    if (!name || !school || !gender) {
+    if (!studentGender || !studentGender || !studentGender) {
       if (window.Swal && Swal.fire) {
         Swal.fire({ title: 'تنبيه', text: 'يرجى إدخال الاسم و المدرسة و الجنس', icon: 'warning', confirmButtonText: 'موافق' });
       } else {
