@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> اختبار مستوى - 11  </title>
+  <title> اختبار مستوى - 11 </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/icon.png" type="image/png">
   <style>
@@ -616,12 +616,6 @@ nav a:hover {
 
 <main>
 
-<div class="section-card">
-    <div class="header-text">
-      <h2> اختبار مستوى المعرفة بعلم الأحياء لمن أنهى الصف التاسع </h2>
-    </div>
- </div>
-
 <div class="section-card" id="quizCard">
 
   <div class="navigator-container">
@@ -750,8 +744,8 @@ function updateNavigator() {
     e.preventDefault();
     let score = 0;
     const studentName = localStorage.getItem("studentName") || "الطالب";
-const studentSchool = localStorage.getItem("studentSchool") || "";
-let result = `<p><strong>الاسم:</strong> ${studentName} – <strong> المدرسة :</strong> ${studentSchool}</p><h3>النتائج:</h3><ul>`;
+const studentGrade = localStorage.getItem("studentGrade") || "";
+let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
 
     questions.forEach((q, i) => {
       const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -784,7 +778,7 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong> الم
     scrollToTop();
     
 // إرسال البيانات إلى Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbzf3Xt21YRSTNhhQufgce2lPLQtEfhfZmWoarIfyzZ-VOEzNxBYF13O-vRmkNJYDU25/exec", {
+fetch("https://script.google.com/macros/s/AKfycbz85QeYarH817s1dPcYUYkvxWThb1LMg-YqZCcOlcaQToj-ThslPU5cF7tlgbypvPdw4g/exec", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -842,15 +836,6 @@ const loginSection = document.getElementById('loginSection');
 const quizSection = document.querySelector('main');
 const loginForm = document.getElementById('loginForm');
 
-
-
-  // Optionally store in localStorage
-  localStorage.setItem("studentName", name);
-  localStorage.setItem("studentGrade", grade);
-
-  scrollToTop();
-};
-
 </script>
 
 <footer class="site-footer">
@@ -858,7 +843,7 @@ const loginForm = document.getElementById('loginForm');
     <div class="footer-logo">
       <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
     </div>
-    <div class="footer-text">
+   <div class="footer-text">
       <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
     </div>
     <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
@@ -867,6 +852,3 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
-
-
-
