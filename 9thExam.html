@@ -774,27 +774,41 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الص�
     document.getElementById('quizCard').style.display = 'none';  // hide whole quiz card (questions + image)
     document.getElementById('resultSection').style.display = 'block'; // show feedback
     scrollToTop();
+
+submitQuiz(finalScore);
+
     
-// إرسال البيانات إلى Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbytWi4PN65KVOL_-1x2IHMVmy_q6WDIkVR_c7_joTVL01Cuyt0lktnvMZXotqIj5_df-Q/exec", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    name: studentName,
-    grade: studentGrade,
-    score: score
+function submitQuiz(score) {
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwKw0brtQbEflg99xDxFdV5jX-EiqL283mk-F3wlJVMfB_kjNbduldjU46_-KxCXdwb/exec";
+
+  // استرجاع بيانات الطالب من localStorage (تم حفظها عند تسجيل الدخول)
+  const studentName = localStorage.getItem("studentName");
+  const studentSchool = localStorage.getItem("studentSchool");
+  const studentGender = localStorage.getItem("studentGender");
+
+  fetch(scriptURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: studentName,
+      grade: studentSchool,
+      gender: studentGender,
+      score: score
+    })
   })
-})
-.then(response => response.text())
-.then(result => {
-  console.log("تم الإرسال:", result);
-})
-.catch(error => {
-  console.error("فشل الإرسال:", error);
-});
+  .then(response => response.json())
+  .then(result => {
+    console.log("تم الحفظ:", result);
+    alert("تم حفظ نتيجتك بنجاح ✅");
+  })
+  .catch(err => {
+    console.error("خطأ:", err);
+    alert("فشل حفظ النتيجة ❌");
+  });
+}
 
 
-  };
+
 
   updateDisplay();
 
@@ -833,7 +847,7 @@ const quizSection = document.querySelector('main');
 const loginForm = document.getElementById('loginForm');
 
 </script>
-
+  
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-logo">
@@ -848,6 +862,7 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
 
 
 
