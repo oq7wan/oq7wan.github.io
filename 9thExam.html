@@ -782,9 +782,9 @@ function submitQuiz(score) {
   const scriptURL = "https://script.google.com/macros/s/AKfycbyYbFkJjrGrYVmhmw-mlRt6nVJvw0mDhzZq-A3V6P2sBKAN-OY-SzONw_fFqaqkJqC5QA/exec";
 
   // استرجاع بيانات الطالب من localStorage (تم حفظها عند تسجيل الدخول)
-  const studentName = localStorage.getItem("studentName");
+  const studentName = localStorage.getItem("name");
   const studentSchool = localStorage.getItem("studentSchool");
-  const studentGender = localStorage.getItem("studentGender");
+  const studentGender = localStorage.getItem("gender");
 
   fetch(scriptURL, {
     method: "POST",
@@ -862,6 +862,7 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
 
 
 
