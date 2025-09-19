@@ -669,7 +669,7 @@ nav a:hover {
 
 <script>
 (function () {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxawHjWK3ZEU7R4_U0UpGBO5oTQYYkoCQKdZuPyJr4keIXnWBK3pCZ6AfRso9GuRE6VrA/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbytWi4PN65KVOL_-1x2IHMVmy_q6WDIkVR_c7_joTVL01Cuyt0lktnvMZXotqIj5_df-Q/exec"; 
   const form = document.getElementById('loginForm');
 
   if (!form) return console.error('Form with id "loginForm" not found.');
@@ -690,58 +690,51 @@ nav a:hover {
       return;
     }
 
-    // optional: keep local copy
+    // save for later use in quiz page
     localStorage.setItem("studentName", name);
     localStorage.setItem("studentSchool", school);
     localStorage.setItem("studentGender", gender);
 
-    const formData = new FormData(form);
-
-    fetch(scriptURL, { method: 'POST', body: formData })
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not OK');
-
-        // If SweetAlert2 (Swal.fire) exists -> use it (returns a promise)
-        if (window.Swal && typeof Swal.fire === 'function') {
-          return Swal.fire({
-            title: 'تم',
-            text: 'نجحت عملية تسجيل الدخول',
-            icon: 'success',
-            confirmButtonText: 'موافق'
-          });
-        }
-
-        // If old swal() exists and returns a promise, use it
-        if (typeof swal === 'function') {
-          try {
-            const maybePromise = swal('تم', 'نجحت عملية تسجيل الدخول', 'success');
-            if (maybePromise && typeof maybePromise.then === 'function') {
-              return maybePromise;
-            }
-          } catch (err) {
-            /* continue to fallback */
-          }
-        }
-
-        // fallback to blocking alert (waits until user clicks OK)
+    // send JSON to Apps Script
+    fetch(scriptURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        grade: school,
+        gender: gender,
+        score: "" // left empty for now, will be updated after quiz
+      })
+    })
+    .then(response => response.json())
+    .then(() => {
+      if (window.Swal && typeof Swal.fire === 'function') {
+        return Swal.fire({
+          title: 'تم',
+          text: 'نجحت عملية تسجيل الدخول',
+          icon: 'success',
+          confirmButtonText: 'موافق'
+        });
+      } else {
         alert('تم\nنجحت عملية تسجيل الدخول');
         return Promise.resolve();
-      })
-      .then(() => {
-        // redirect after the student clicked OK on the popup
-        window.location.href = "9thExam.html";
-      })
-      .catch(err => {
-        console.error(err);
-        if (window.Swal && typeof Swal.fire === 'function') {
-          Swal.fire({ title: 'خطأ', text: 'حدث خطأ ما، حاول تسجيل الدخول مجدداً !', icon: 'error', confirmButtonText: 'حسناً' });
-        } else {
-          alert('حدث خطأ ما، حاول تسجيل الدخول مجدداً !');
-        }
-      });
+      }
+    })
+    .then(() => {
+      window.location.href = "9thExam.html";
+    })
+    .catch(err => {
+      console.error(err);
+      if (window.Swal && typeof Swal.fire === 'function') {
+        Swal.fire({ title: 'خطأ', text: 'حدث خطأ ما، حاول تسجيل الدخول مجدداً !', icon: 'error', confirmButtonText: 'حسناً' });
+      } else {
+        alert('حدث خطأ ما، حاول تسجيل الدخول مجدداً !');
+      }
+    });
   });
 })();
 </script>
+
 
 <footer class="site-footer">
   <div class="footer-content">
