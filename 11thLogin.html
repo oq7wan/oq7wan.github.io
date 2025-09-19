@@ -621,10 +621,10 @@ nav a:hover {
   </button>
   
   <span class="nav-current"> تسجيل الدخول  </span>
-  <a href="index.html" target="_blank"> الرئيسية </a>
-  <a href="12th grade Interface.html" target="_blank"> الصف الثاني عشر العلمي </a>
-  <a href="11th grade Interface.html" target="_blank"> الصف الحادي عشر العلمي </a>
-  <a href="10th grade Interface.html" target="_blank"> الصف العاشر </a>
+  <a href="index.html" target="_blank">الرئيسية </a>
+  <a href="12th grade Interface.html" target="_blank">الصف الثاني عشر</a>
+  <a href="11th grade Interface.html" target="_blank">الصف الحادي عشر</a>
+  <a href="10th grade Interface.html" target="_blank">الصف العاشر</a>
 </nav>
 
 <div id="loginSection" class="section-card">
@@ -643,7 +643,7 @@ nav a:hover {
             <input
               class="form-control"
               type="text"
-              name="studentName"
+              name="name"
               id="studentName"
               placeholder="الاسم الكامل"
               required
@@ -651,11 +651,11 @@ nav a:hover {
             />
     
 
-      <label for="school"> اسم المدرسة :</label>
+      <label for="studentSchool"> اسم المدرسة :</label>
       <input type="text" id="studentSchool" name="studentSchool" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
 
-      <label for="gender"> الجنس </label>
-            <select class="form-control" name="studentGender" id="studentGender" required 
+      <label for="loc"> الجنس </label>
+            <select class="form-control" name="gender" id="studentGender" required 
               style="width: 100%; padding: 8px; margin-bottom: 10px;">
               <option value="" disabled selected hidden> اختر ... </option>
               <option value="male"> ذكر </option>
@@ -677,11 +677,11 @@ nav a:hover {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const studentName = document.getElementById('studentName').value.trim();
-    const studentSchool = document.getElementById('studentSchool').value.trim();
-    const studentGender = document.getElementById('studentGender').value;
+    const name = document.getElementById('studentName').value.trim();
+    const school = document.getElementById('studentSchool').value.trim();
+    const gender = document.getElementById('studentGender').value;
 
-    if (!studentGender || !studentGender || !studentGender) {
+    if (!name || !school || !gender) {
       if (window.Swal && Swal.fire) {
         Swal.fire({ title: 'تنبيه', text: 'يرجى إدخال الاسم و المدرسة و الجنس', icon: 'warning', confirmButtonText: 'موافق' });
       } else {
@@ -729,7 +729,7 @@ nav a:hover {
       })
       .then(() => {
         // redirect after the student clicked OK on the popup
-        window.location.href = "11thExam.html";
+        window.location.href = "10thExam.html";
       })
       .catch(err => {
         console.error(err);
