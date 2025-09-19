@@ -842,29 +842,6 @@ const loginSection = document.getElementById('loginSection');
 const quizSection = document.querySelector('main');
 const loginForm = document.getElementById('loginForm');
 
-quizSection.style.display = 'none'; // hide quiz until login
-
-loginForm.onsubmit = function (e) {
-  e.preventDefault();
-  const name = document.getElementById('studentName').value.trim();
-  const grade = document.getElementById('studentGrade').value;
-
-  if (!name || !grade) {
-    alert("يرجى إدخال الاسم والصف");
-    return;
-  }
-
-
-
-  // Optionally store in localStorage
-  localStorage.setItem("studentName", name);
-  localStorage.setItem("studentGrade", grade);
-
-  loginSection.style.display = 'none';
-  quizSection.style.display = 'block';
-  scrollToTop();
-};
-
 </script>
 
 <footer class="site-footer">
@@ -881,6 +858,7 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
 
