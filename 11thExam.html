@@ -744,8 +744,9 @@ function updateNavigator() {
     e.preventDefault();
     let score = 0;
     const studentName = localStorage.getItem("studentName") || "الطالب";
-const studentSchool = localStorage.getItem("studentSchool") || "";
-let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
+    const studentSchool = localStorage.getItem("studentSchool") || "";
+    let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>المدرسة:</strong> ${studentSchool}</p><h3>النتائج:</h3><ul>`;
+
 
     questions.forEach((q, i) => {
       const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -852,5 +853,6 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
 
 
