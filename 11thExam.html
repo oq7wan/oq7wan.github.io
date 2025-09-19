@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> اختبار مستوى </title>
+  <title> اختبار مستوى - 11  </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/icon.png" type="image/png">
   <style>
@@ -607,51 +607,12 @@ nav a:hover {
     <span></span>
     <span></span>
   </button>
-  <span class="nav-current"> اختبار مستوى </span>
+  <span class="nav-current"> اختبار مستوى - الحادي عشر </span>
   <a href="index.html" target="_blank">الرئيسية </a>
-  <a href="12th.html" target="_blank">الصف الثاني عشر</a>
-  <a href="11th.html" target="_blank">الصف الحادي عشر</a>
-  <a href="10th.html" target="_blank">الصف العاشر</a>
+  <a href="12th grade Interface.html" target="_blank"> الصف الثاني عشر العلمي </a>
+  <a href="11th grade Interface.html" target="_blank"> الصف الحادي عشر العلمي </a>
+  <a href="10th grade Interface.html" target="_blank"> الصف العاشر </a>
 </nav>
-
-
-<div id="loginSection" class="section-card">
-  <div class="image-side">
-    <div class="image-hover-wrapper">
-    <img src="images/exam.png" alt="students performing computerized exam">
-    <div class="hover-text"> استعد </div>
-  </div>
-  </div>
-
-  <div class="text-side">
-    <h2>تسجيل الدخول لاختبار مستوى المعرفة بعلم الأحياء</h2>
-    <form id="loginForm">
-      <label for="studentName"> الاسم الكامل :</label>
-      <input type="text" id="studentName" name="studentName" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-
-
-       <label for="studentGrade"> هل أنهيت الصف التاسع ؟ </label>
-      <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-        <option value="">-- نعم أم لا ؟ --</option>
-        <option value="نعم"> نعم </option>
-        <option value="لا">لا</option>
-      </select>
-
-
-      <label for="studentGrade"> الصف الحالي : </label>
-      <select id="studentGrade" name="studentGrade" required style="width: 100%; padding: 8px; margin-bottom: 10px;">
-        <option value="">-- اختر الصف --</option>
-        <option value="العاشر">العاشر</option>
-        <option value="الحادي عشر">الحادي عشر</option>
-        <option value="الثاني عشر">الثاني عشر</option>
-      </select>
-
-      <button type="submit">بدء الاختبار</button>
-    </form>
-  </div>
-  
-</div>
-
 
 <main>
 
@@ -789,8 +750,8 @@ function updateNavigator() {
     e.preventDefault();
     let score = 0;
     const studentName = localStorage.getItem("studentName") || "الطالب";
-const studentGrade = localStorage.getItem("studentGrade") || "";
-let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
+const studentSchool = localStorage.getItem("studentSchool") || "";
+let result = `<p><strong>الاسم:</strong> ${studentName} – <strong> المدرسة :</strong> ${studentSchool}</p><h3>النتائج:</h3><ul>`;
 
     questions.forEach((q, i) => {
       const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -881,26 +842,12 @@ const loginSection = document.getElementById('loginSection');
 const quizSection = document.querySelector('main');
 const loginForm = document.getElementById('loginForm');
 
-quizSection.style.display = 'none'; // hide quiz until login
-
-loginForm.onsubmit = function (e) {
-  e.preventDefault();
-  const name = document.getElementById('studentName').value.trim();
-  const grade = document.getElementById('studentGrade').value;
-
-  if (!name || !grade) {
-    alert("يرجى إدخال الاسم والصف");
-    return;
-  }
-
 
 
   // Optionally store in localStorage
   localStorage.setItem("studentName", name);
   localStorage.setItem("studentGrade", grade);
 
-  loginSection.style.display = 'none';
-  quizSection.style.display = 'block';
   scrollToTop();
 };
 
@@ -920,5 +867,6 @@ loginForm.onsubmit = function (e) {
 
 </body>
 </html>
+
 
 
