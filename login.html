@@ -669,7 +669,7 @@ nav a:hover {
 
 <script>
 (function () {
-  const scriptURL = "https://script.google.com/macros/s/AKfycbz85QeYarH817s1dPcYUYkvxWThb1LMg-YqZCcOlcaQToj-ThslPU5cF7tlgbypvPdw4g/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzZDeK8S7ImT0_BXAbZ1DCV8zoaPvKXbD1Hph4C0jTFicsExyoOgla1iOuJeEJKVCJT/exec";
   const form = document.getElementById('loginForm');
 
   if (!form) return console.error('Form with id "loginForm" not found.');
@@ -678,10 +678,10 @@ nav a:hover {
     e.preventDefault();
 
     const name = document.getElementById('studentName').value.trim();
-    const studentSchool = document.getElementById('studentSchool').value.trim();
+    const school = document.getElementById('studentSchool').value.trim();
     const gender = document.getElementById('studentGender').value;
 
-    if (!name || !studentSchool || !gender) {
+    if (!name || !school || !gender) {
       if (window.Swal && Swal.fire) {
         Swal.fire({ title: 'تنبيه', text: 'يرجى إدخال الاسم و المدرسة و الجنس', icon: 'warning', confirmButtonText: 'موافق' });
       } else {
@@ -692,30 +692,45 @@ nav a:hover {
 
     // optional: keep local copy
     localStorage.setItem("studentName", name);
-    localStorage.setItem("studentSchool", studentSchool);
+    localStorage.setItem("studentSchool", school);
     localStorage.setItem("studentGender", gender);
 
     const formData = new FormData(form);
 
-fetch("YOUR_SCRIPT_URL", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    action: "register",
-    name: document.getElementById("name").value,
-    studentSchool: document.getElementById("school").value,
-    gender: document.getElementById("gender").value
-  })
-})
-.then(res => res.json())
-.then(data => {
-  // تخزين رقم الصف
-  localStorage.setItem("rowId", data.rowId);
-  // بعد تسجيل الدخول ينتقل للامتحان
-  window.location.href = "9thExam.html";
-});
+    fetch(scriptURL, { method: 'POST', body: formData })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not OK');
 
+        // If SweetAlert2 (Swal.fire) exists -> use it (returns a promise)
+        if (window.Swal && typeof Swal.fire === 'function') {
+          return Swal.fire({
+            title: 'تم',
+            text: 'نجحت عملية تسجيل الدخول',
+            icon: 'success',
+            confirmButtonText: 'موافق'
+          });
+        }
 
+        // If old swal() exists and returns a promise, use it
+        if (typeof swal === 'function') {
+          try {
+            const maybePromise = swal('تم', 'نجحت عملية تسجيل الدخول', 'success');
+            if (maybePromise && typeof maybePromise.then === 'function') {
+              return maybePromise;
+            }
+          } catch (err) {
+            /* continue to fallback */
+          }
+        }
+
+        // fallback to blocking alert (waits until user clicks OK)
+        alert('تم\nنجحت عملية تسجيل الدخول');
+        return Promise.resolve();
+      })
+      .then(() => {
+        // redirect after the student clicked OK on the popup
+        window.location.href = "10thExam.html";
+      })
       .catch(err => {
         console.error(err);
         if (window.Swal && typeof Swal.fire === 'function') {
