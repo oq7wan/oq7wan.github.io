@@ -744,7 +744,7 @@ function updateNavigator() {
     e.preventDefault();
     let score = 0;
     const studentName = localStorage.getItem("studentName") || "الطالب";
-const studentGrade = localStorage.getItem("studentGrade") || "";
+const studentSchool = localStorage.getItem("studentSchool") || "";
 let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
 
     questions.forEach((q, i) => {
@@ -784,8 +784,8 @@ fetch("https://script.google.com/macros/s/AKfycbz85QeYarH817s1dPcYUYkvxWThb1LMg-
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    name: studentName,
-    grade: studentGrade,
+    name: studentSchool,
+    school: studentSchool,
     score: score
   })
 })
@@ -852,3 +852,4 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
