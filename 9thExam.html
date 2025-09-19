@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>  اختبار مستوى - تاسع </title>
+  <title> اختبار مستوى - تاسع  </title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <link rel="icon" href="images/icon.png" type="image/png">
   <style>
@@ -576,6 +576,7 @@ nav a:hover {
   opacity: 1;
 }
 
+
 .header-logo-text {
   display: flex;
   align-items: center;
@@ -588,9 +589,10 @@ nav a:hover {
   border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
 }
 
-  </style>
-</head>
 
+  </style>
+
+</head>
 <body>
   <header>
   <div class="header-logo-text">
@@ -605,7 +607,7 @@ nav a:hover {
     <span></span>
     <span></span>
   </button>
-  <span class="nav-current"> اختبار مستوى - تاسع </span>
+  <span class="nav-current"> اختبار مستوى - التاسع </span>
   <a href="index.html" target="_blank">الرئيسية </a>
   <a href="12th grade Interface.html" target="_blank">الصف الثاني عشر</a>
   <a href="11th grade Interface.html" target="_blank">الصف الحادي عشر</a>
@@ -613,6 +615,12 @@ nav a:hover {
 </nav>
 
 <main>
+
+<div class="section-card">
+    <div class="header-text">
+      <h2> اختبار مستوى المعرفة بعلم الأحياء لمن أنهى الصف التاسع </h2>
+    </div>
+ </div>
 
 <div class="section-card" id="quizCard">
 
@@ -644,18 +652,6 @@ nav a:hover {
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <div class="footer-logo">
-      <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
-    </div>
-    <div class="footer-text">
-      <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
-    </div>
-    <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
-  </div>
-</footer>
-  
 <script>
   const questions = [
     { question: "ما هي وحدة بناء الكائن الحي؟", choices: ["الخلية", "النسيج", "العضو", "الجهاز"], correct: "الخلية" },
@@ -753,11 +749,9 @@ function updateNavigator() {
   document.getElementById('quizForm').onsubmit = function (e) {
     e.preventDefault();
     let score = 0;
-    const studentName = localStorage.getItem("studentName") || "";
-    const studentSchool = localStorage.getItem("studentSchool") || "";
-    const studentGender = localStorage.getItem("studentGender") || "";
-
-    let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>المدرسة:</strong> ${studentSchool}</p><h3>النتائج:</h3><ul>`;
+    const studentName = localStorage.getItem("studentName") || "الطالب";
+const studentGrade = localStorage.getItem("studentGrade") || "";
+let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الصف:</strong> ${studentGrade}</p><h3>النتائج:</h3><ul>`;
 
     questions.forEach((q, i) => {
       const selected = document.querySelector(`input[name="q${i}"]:checked`);
@@ -789,6 +783,28 @@ function updateNavigator() {
     document.getElementById('resultSection').style.display = 'block'; // show feedback
     scrollToTop();
     
+// إرسال البيانات إلى Google Sheet
+fetch("https://script.google.com/macros/s/AKfycbz85QeYarH817s1dPcYUYkvxWThb1LMg-YqZCcOlcaQToj-ThslPU5cF7tlgbypvPdw4g/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: studentName,
+    grade: studentGrade,
+    score: score
+  })
+})
+.then(response => response.text())
+.then(result => {
+  console.log("تم الإرسال:", result);
+})
+.catch(error => {
+  console.error("فشل الإرسال:", error);
+});
+
+
+  };
 
   updateDisplay();
 
@@ -822,36 +838,23 @@ function updateNavigator() {
     hamburger.setAttribute('aria-expanded', !expanded);
   });
 
-
+const loginSection = document.getElementById('loginSection');
 const quizSection = document.querySelector('main');
+const loginForm = document.getElementById('loginForm');
 
-const rowId = localStorage.getItem("rowId");
-
-fetch("YOUR_SCRIPT_URL", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    action: "updateScore",
-    rowId: rowId,
-    score: score
-  })
-})
-.then(response => response.text())
-.then(result => {
-  console.log("تم تحديث النتيجة:", result);
-})
-.catch(error => {
-  console.error("فشل التحديث:", error);
-});
-    
 </script>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
+    </div>
+   <div class="footer-text">
+      <p> جميع الحقوق محفوظة © أُقْحُوان 2025 </p>
+    </div>
+    <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
+  </div>
+</footer>
 
 </body>
 </html>
-
-
-
-
-
-
-
