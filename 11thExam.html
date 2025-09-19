@@ -780,7 +780,7 @@ function updateNavigator() {
     scrollToTop();
     
 // إرسال البيانات إلى Google Sheet
-fetch("https://script.google.com/macros/s/AKfycbxMwfXi0xh07lKbfOu7GjlWRjAhoAGnLBI_YhTs5PCZ6EE2quZvLfgBVie-mVjS5m1-UA/exec", {
+fetch("https://script.google.com/macros/s/AKfycbzfsn-iwawQMixNZZoLRTrvlMZmSxzhYwkVAStfqEFgQUTFClp4LbKQ_wcD11XZG8T-tQ/exec", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -788,6 +788,7 @@ fetch("https://script.google.com/macros/s/AKfycbxMwfXi0xh07lKbfOu7GjlWRjAhoAGnLB
   body: JSON.stringify({
     name: studentName,
     school: studentSchool,
+    gender: studentGender, 
     score: score
   })
 })
@@ -854,6 +855,7 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
 
 
 
