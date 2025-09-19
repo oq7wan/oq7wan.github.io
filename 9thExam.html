@@ -775,7 +775,7 @@ let result = `<p><strong>الاسم:</strong> ${studentName} – <strong>الص�
     document.getElementById('resultSection').style.display = 'block'; // show feedback
     scrollToTop();
 
-submitQuiz(finalScore);
+submitQuiz(score);
 
     
 function submitQuiz(score) {
@@ -790,9 +790,9 @@ function submitQuiz(score) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      name: studentName,
-      grade: studentSchool,
-      gender: studentGender,
+      name: name,
+      school: studentSchool,
+      gender: gender,
       score: score
     })
   })
@@ -862,6 +862,7 @@ const loginForm = document.getElementById('loginForm');
 
 </body>
 </html>
+
 
 
 
