@@ -408,7 +408,7 @@ img {
 
 /* Adjust each card inside wrapper */
 .sections-wrapper .section-card {
-  flex: 1 1 calc(33.333% - 20px); /* 3 cards in a row with 20px gap */
+  flex: 1 1 calc(25% - 20px); /* 4 cards in a row with 20px gap */
   margin: 0;
   max-width: 100%;
 }
@@ -478,6 +478,7 @@ img {
   <span class="nav-current"> دروس و عروض تقديمية  </span>
   <a href="index.html" target="_blank">الرئيسية</a>
   <a href="12th grade Interface.html" target="_blank">الصف الثاني عشر العلمي</a>
+  <a href="12th Lit Interface.html" target="_blank">الصف الثاني عشر الأدبي</a>
   <a href="11th grade Interface.html" target="_blank">الصف الحادي عشر العلمي</a>
   <a href="10th grade Interface.html" target="_blank">الصف العاشر</a>
 </nav>
@@ -500,7 +501,23 @@ img {
   </div>
 </div>
 
+<div class="section-card column-layout">
+  <!-- Left side: Image -->
+  <div class="image-side">
+  <div class="image-hover-wrapper" onclick="this.classList.toggle('active')">
+    <a href="12th Lit Interface.html" target="_blank">
+    <img src="images/teacher.png" alt="school students performing exam">
+    <div class="hover-text"> اضغط هنا </div>
+    </a>
+  </div>
+</div>
 
+  <!-- Right side: Text -->
+  <div class="text-side">
+    <h2> ملفات الصف الثاني عشر الفرع الأدبي </h2>
+  </div>
+</div>
+  
 <div class="section-card column-layout">
   <!-- Left side: Image -->
   <div class="image-side">
@@ -627,6 +644,7 @@ function scrollToTop() {
 
 </body>
 </html>
+
 
 
 
