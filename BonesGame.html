@@ -396,23 +396,36 @@ document.getElementById("score2").innerText=score2;
 }
 }
 
+let timeLeft = 15;
+let timer = null;
+
 function startTimer(){
-timeLeft=30;
-timer=setInterval(()=>{
-timeLeft--;
-document.getElementById("time").innerText=timeLeft;
-if(timeLeft<=0){
-clearInterval(timer);
-alert("انتهى الوقت ⏰");
-}
-},1000);
+    clearInterval(timer);
+    timeLeft = 15;
+    document.getElementById("time").innerText = timeLeft;
+
+    timer = setInterval(()=>{
+        timeLeft--;
+        document.getElementById("time").innerText = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(timer);
+            document.getElementById("time").innerText = "0";
+            
+            // صوت انتهاء الوقت (اختياري)
+            document.getElementById("flipSound").play();
+
+            alert("انتهى الوقت ⏰");
+        }
+    },1000);
 }
 
 function resetTimer(){
-clearInterval(timer);
-timeLeft=30;
-document.getElementById("time").innerText=30;
+    clearInterval(timer);
+    timeLeft = 15;
+    document.getElementById("time").innerText = timeLeft;
 }
+
 
 function newQuestion(){
 loadQuestion();
