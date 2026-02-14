@@ -148,27 +148,51 @@ nav a:hover{
 .hidden{display:none}
 
 /* ===== FOOTER ===== */
-.site-footer{
-  background:#006400;
-  color:white;
-  text-align:center;
-  padding:30px 10px;
-  margin-top:60px;
+.site-footer {
+  background-color: #006400;
+  color: white;
+  text-align: center;
+  padding: 30px 10px;
+  font-size: 14px;
+  margin-top: 60px;
 }
 
-.scroll-top{
-  margin-top:10px;
-  background:#228B22;
-  color:white;
-  border:none;
-  border-radius:30px;
-  padding:8px 16px;
-  cursor:pointer;
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.scroll-top:hover{
-  background:#004d00;
+.footer-logo img.dna-icon {
+  width: 60px;
+  height: 60px;
+  animation: rotateDNA 5s linear infinite;
 }
+
+/* DNA rotation animation */
+@keyframes rotateDNA {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Scroll-to-top button */
+.scroll-top {
+  margin-top: 10px;
+  background-color: #228B22;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-top:hover {
+  background-color: #004d00;
+}
+
 </style>
 </head>
 
