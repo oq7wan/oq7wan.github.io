@@ -750,86 +750,7 @@ img {
 }
 
 
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.box {
-    width: 120px;
-    height: 120px;
-    background-color: #a9dba9;
-    color: black;
-    margin: 10px;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 15px;
-    border: 2px solid #006400;
-    transition: all 0.3s ease;
-}
-
-.box:hover {
-    background-color: #006400;
-    color: white;
-    transform: scale(1.05);
-}
-
-.question-area {
-    margin: 20px auto;
-    background: #a9dba9;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #006400;
-    display: inline-block;
-    max-width: 800px;
-}
-
-#questionArea {
-  display: none;
-  text-align: center;
-}    
-
-.question {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: black;
-}
-
-.choices {
-  display: flex;
-  flex-direction: column;  /* يخلي الأزرار تحت بعض */
-  align-items: stretch;    /* يخليهم كلهم نفس العرض */
-  gap: 8px;                /* مسافة بين كل زر */
-}
-
-.choices button {
-  flex: 1;                 /* يخلي العرض متساوي */
-  margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 8px;
-     border: 1px solid #006400;
-    background-color: #f4f4f9;
-    color: #0d1117;
-    transition: background 0.3s ease;      /* خلفية افتراضية */
-}    
-
-
-.choices button:hover {
-    background-color: #006400;
-}
-
-.score {
-    font-size: 22px;
-    color: black;
-    margin-top: 20px;
-}    
+   
   
 /* ===== GAME CARD ===== */
 .container{
@@ -915,6 +836,12 @@ img {
 </header>
 
 <nav>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+     
 <span class="nav-current"> مراجعة فصل الانقسام المنصف و تكوين الغاميتات </span>
   <a href="index.html" target="_blank"> الرئيسية </a>
   <a href="12th grade Interface.html"> الصف الثاني عشر العلمي </a>
