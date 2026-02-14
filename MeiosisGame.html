@@ -999,7 +999,19 @@ function scrollToTop() {
       behavior: 'smooth'
     });
   }
-  
+
+const nav = document.querySelector('nav');
+  const hamburger = document.querySelector('.hamburger');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+
+    // Update aria-expanded for accessibility
+    const expanded = hamburger.classList.contains('active');
+    hamburger.setAttribute('aria-expanded', expanded);
+  });
+   
 </script>
   
 <footer class="site-footer">
