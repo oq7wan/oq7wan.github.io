@@ -586,7 +586,7 @@ img {
 <h2> لعبة مراجعة مصطلحات الجهاز الدوراني </h2>
 <h3> اختر صندوق عشوائي و سيظهر لك سؤال </h3>
 <h3> في حال أجبت عنه إجابة صحيحة تحصل على 3 نقاط  </h3>
-<h3> و في حال أجبت إجابة خاطئة تخسر نقطة </h3>
+<h3> و في حال أجبت عنه إجابة خاطئة تخسر نقطة </h3>
 <div class="container" id="boxContainer"></div>
 <div class="question-area" id="questionArea" style="display:none;">
 <div class="question" id="questionText"></div>
@@ -748,7 +748,7 @@ function scrollToTop() {
                 if (i === q.correct) {
                     score += 3;
                 } else {
-                    score -= 2;
+                    score -= 1;
                 }
                 scoreDisplay.innerText = `النقاط: ${score}`;
                 boxElement.style.display = "none";
