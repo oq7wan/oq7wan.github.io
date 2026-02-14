@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+
+<title> لعبة Top Five </title>
+
+<style>
+*{
+box-sizing:border-box;
+font-family:'Tajawal',sans-serif;
+}
+
+body{
+margin:0;
+padding-top:160px;
+background-color:#f4f4f9;
+}
+
+/* Header */
+header{
+background-color:#006400;
+color:white;
+position:fixed;
+top:0;
+width:100%;
+height:100px;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:1000;
+}
+
+nav{
+background-color:#228B22;
+position:fixed;
+top:100px;
+width:100%;
+text-align:center;
+padding:10px;
+color:white;
+font-weight:bold;
+z-index:999;
+}
+
+/* Main container */
+.game-container{
+max-width:1000px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:16px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+h2{
+color:#006400;
+}
+
+.scoreboard{
+display:flex;
+justify-content:space-around;
+font-size:22px;
+margin:20px 0;
+color:#006400;
+}
+
+.timer{
+font-size:26px;
+color:#228B22;
+margin-bottom:15px;
+}
+
+.quiz-button{
+margin-top:10px;
+padding:10px 20px;
+background-color:#006400;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+}
+
+.quiz-button:hover{
+background-color:#004d00;
+}
+
+.card{
+background:#ffffff;
+border:1px solid #ddd;
+border-right:5px solid #228B22;
+padding:20px;
+margin:15px 0;
+border-radius:12px;
+box-shadow:0 4px 8px rgba(0,0,0,0.08);
+transform:rotateY(90deg);
+transition:0.6s;
+}
+
+.card.reveal{
+transform:rotateY(0);
+}
+
+.team-btn{
+margin:5px;
+padding:8px 15px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+color:white;
+}
+
+.team1{background:#228B22;}
+.team1:hover{background:#006400;}
+
+.team2{background:#444;}
+.team2:hover{background:#222;}
+
+.confetti{
+position:fixed;
+width:8px;
+height:8px;
+top:0;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1> أقحوان</h1>
+</header>
+
+<nav> لعبة مراجعة </nav>
+
+<div class="game-container">
+
+<div class="scoreboard">
+<div>فريق 1: <span id="score1">0</span></div>
+<div>فريق 2: <span id="score2">0</span></div>
+</div>
+
+<div class="timer">⏱ الوقت: <span id="time">30</span></div>
+
+<h2 id="question"></h2>
+
+<button class="quiz-button" onclick="startTimer()">ابدأ المؤقت</button>
+<button class="quiz-button" onclick="revealAnswers()">كشف الإجابات</button>
+<button class="quiz-button" onclick="newQuestion()">سؤال جديد</button>
+<button class="quiz-button" onclick="announceWinner()">إعلان الفائز</button>
+
+<div id="answersArea"></div>
+
+<audio id="flipSound">
+<source src="https://www.soundjay.com/buttons/sounds/button-16.mp3">
+</audio>
+
+</div>
+
+<script>
+let score1=0, score2=0;
+let timeLeft=30, timer;
+
+const questions=[
+
+{question:"اذكر خصائص عظمة الفخذ",
+answers:[
+{text:"تتمفصل مع عظمة الورك في تجويف الحق",points:10},
+{text:"عددها اثنتان في الجسم",points:7},
+{text:"تتمفصل مع عظمتي الساق",points:5},
+{text:"عظمة طويلة",points:3},
+{text:"جزء من الطرف السفلي",points:1}
+]},
+
+{question:"اذكر خصائص عظمة العضد",
+answers:[
+{text:"جزء من الطرف العلوي",points:10},
+{text:"تسهم في تشكيل مفصل الكتف",points:7},
+{text:"عظمة طويلة",points:5},
+{text:"عددها واحد في الطرف الواحد",points:3},
+{text:"من الهيكل الطرفي",points:1}
+]},
+
+{question:"اذكر خصائص الجمجمة",
+answers:[
+{text:"تحمي الدماغ",points:10},
+{text:"من الهيكل المحوري",points:7},
+{text:"تتكون من 22 عظمة",points:5},
+{text:"عظامها مسننة",points:3},
+{text:"تشكل هيكل الوجه",points:1}
+]},
+
+{question:"اذكر خصائص العمود الفقري",
+answers:[
+{text:"يحمي الحبل الشوكي",points:10},
+{text:"يتكون من 33 فقرة",points:7},
+{text:"24 عظمة منه متمفصلة",points:5},
+{text:"9 من عظامه ملتحمة",points:3},
+{text:"يفصل بين فقراته أقراص ليفية غضروفية",points:1}
+]},
+
+{question:"اذكر خصائص عظمة الزند",
+answers:[
+{text:"تقع في الساعد",points:10},
+{text:"عددها اثنان في الجسم",points:7},
+{text:"عددها واحد في الطرف الواحد",points:5},
+{text:"عظمة طويلة",points:3},
+{text:"من الطرف العلوي",points:1}
+]},
+
+{question:"اذكر خصائص عظام الساعد",
+answers:[
+{text:"تقع في الساعد",points:10},
+{text:"من الطرف العلوي",points:7},
+{text:"تتمفصل مع عظام الرسغ",points:5},
+{text:"تتمفصل مع عظمة العضد",points:3},
+{text:"تتكون من عظمتي الزند و الكعبرة",points:1}
+]},
+
+{question:"اذكر خصائص الأضلاع",
+answers:[
+{text:"تحمي القلب والرئتين",points:10},
+{text:"12 زوجاً",points:7},
+{text:"جزء من القفص الصدري",points:5},
+{text:"7 أزواج منها تتصل من الأمام بعظمة القص مباشرة",points:3},
+{text:"من الهيكل المحوري",points:1}
+]},
+
+{question:"اذكر خصائص عظمة القص",
+answers:[
+{text:"تشكل جزءاً من القفص الصدري",points:10},
+{text:"تتصل بها الأضلاع الحقيقية",points:7},
+{text:"عظمة مسطحة",points:5},
+{text:"تحمي القلب",points:3},
+{text:"لا يتصل بها أبداً زوجي الأضلاع الطافية",points:1}
+]},
+
+{question:"اذكر خصائص عظمة الرضفة",
+answers:[
+{text:"تساهم في تكوين مفصل الركبة",points:10},
+{text:"من الهيكل الطرفي",points:7},
+{text:"عظمة سمسمية",points:5},
+{text:"صغيرة الحجم",points:3},
+{text:"من الطرف السفلي",points:1}
+]},
+
+{question:"اذكر خصائص الحزام الحوضي",
+answers:[
+{text:"يتكون من عظمتي الورك",points:10},
+{text:"من الهيكل الطرفي",points:7},
+{text:"يربط بين الأطراف السفلية و الهيكل المحوري",points:5},
+{text:"يتكون من عظمتين متماثلتين",points:3},
+{text:"من الطرف السفلي",points:1}
+]},
+
+{question:"اذكر خصائص عظمة الشظية",
+answers:[
+{text:"من الهيكل الطرفي",points:10},
+{text:"تسهم في تكوين مفصل الركبة",points:7},
+{text:"تجاورها القصبة",points:5},
+{text:"تعتبر جزءاً من عظام الساق",points:3},
+{text:"من الطرف السفلي",points:1}
+]},
+
+{question:"اذكر خصائص الحوض",
+answers:[
+{text:"يشمل الفقرات العجزية و العصعصية و عظمتي الورك",points:10},
+{text:"يحمي الأعضاء الداخلية",points:7},
+{text:"عند الإناث أوسع مقارنة بالرجال",points:5},
+{text:"جزء من الهيكل الطرفي",points:3},
+{text:"يتكون من 11 عظمة",points:1}
+]},
+
+{question:"اذكر خصائص الترقوة",
+answers:[
+{text:"تسهم في تكوين مفصل الكتف",points:10},
+{text:"تتصل من الأمام مع عظمة القص",points:7},
+{text:"تقع في التشريح الأمامي لجسم الانسان",points:5},
+{text:"جزء من الحزام الصدري",points:3},
+{text:"تتصل مع الخلف مع لوح الكتف",points:1}
+]},
+
+{question:"اذكر خصائص لوح الكتف",
+answers:[
+{text:"عظمة مسطحة",points:10},
+{text:"عظمة مثلثة الشكل",points:7},
+{text:"فيها تجويف خاص لاستقبال عظم العضد",points:5},
+{text:"تقع في التشريح الخلفي لجسم الانسان",points:3},
+{text:"تتصل بالترقوة عن طريق شوكة علوية بارزة منها",points:1}
+]},
+
+{question:"اذكر خصائص الفقرات العجزية",
+answers:[
+{text:"عظام ملتحمة",points:10},
+{text:"لا يفصل بينها أقراص ليفية غضروفية",points:7},
+{text:"عددها 5 فقرات",points:5},
+{text:"جزء من الهيكل المحوري",points:3},
+{text:"يتساهم في تكوين الحوض",points:1}
+]},
+
+{question:"اذكر خصائص الفقرات العنقية",
+answers:[
+{text:"عددها 7 فقرات",points:10},
+{text:"يفصل بينها أقراص ليفية غضروفية",points:7},
+{text:"مرنة الحركة",points:5},
+{text:"تحمي الحبل الشوكي",points:3},
+{text:"من الهيكل المحوري",points:1}
+]},
+
+{question:"اذكر خصائص الفقرات الصدرية",
+answers:[
+{text:"عددها 12 فقرة",points:10},
+{text:"تتصل بالأضلاع الحقيقية",points:7},
+{text:"تساهم في تكوين القفص الصدري",points:5},
+{text:"تحمي الحبل الشوكي",points:3},
+{text:"متمفصلة",points:1}
+]},
+
+{question:"اذكر خصائص الفقرات القطنية",
+answers:[
+{text:"عددها 5 فقرات",points:10},
+{text:"متمفصلة و متحركة",points:7},
+{text:"تقع أسفل الفقرات الصدرية مباشرة",points:5},
+{text:"تقع فوق الفقرات العجزية مباشرة",points:3},
+{text:"غير منتظمة الشكل",points:1}
+]},
+
+{question:"اذكر خصائص عظام اليد",
+answers:[
+{text:"عددها 19 عظمة في الرطرف الواحد",points:10},
+{text:"تشمل سلاميات الأصابع و عددها 14 في الطرف الواحد ",points:7},
+{text:"تشمل عظام المشط و عددها 5 في الطرف الواحد",points:5},
+{text:"من الطرف العلوي",points:3},
+{text:"تتمفصل مع عظام الرسغ",points:1}
+]},
+
+{question:"اذكر خصائص عظام القدم",
+answers:[
+{text:"تتمفصل مع عظام الكاحل",points:10},
+{text:"عددها 38 عظمة في الجسم",points:7},
+{text:"عددها 19 عظمة في الطرف الواحد",points:5},
+{text:"من الطرف السفلي",points:3},
+{text:"من الهيكل الطرفي",points:1}
+]}
+
+];
+
+let currentQuestion;
+
+function loadQuestion(){
+currentQuestion=questions[Math.floor(Math.random()*questions.length)];
+document.getElementById("question").innerText=currentQuestion.question;
+document.getElementById("answersArea").innerHTML="";
+resetTimer();
+}
+
+function revealAnswers(){
+let area=document.getElementById("answersArea");
+area.innerHTML="";
+currentQuestion.answers.forEach((ans,i)=>{
+let card=document.createElement("div");
+card.className="card";
+card.innerHTML=`
+<h3>${ans.text}</h3>
+<p>النقاط: ${ans.points}</p>
+<button class="team-btn team1" onclick="addPoints(1,${ans.points})">فريق 1</button>
+<button class="team-btn team2" onclick="addPoints(2,${ans.points})">فريق 2</button>
+`;
+area.appendChild(card);
+setTimeout(()=>{
+card.classList.add("reveal");
+document.getElementById("flipSound").play();
+},300*i);
+});
+}
+
+function addPoints(team,points){
+if(team===1){
+score1+=points;
+document.getElementById("score1").innerText=score1;
+}else{
+score2+=points;
+document.getElementById("score2").innerText=score2;
+}
+}
+
+function startTimer(){
+timeLeft=30;
+timer=setInterval(()=>{
+timeLeft--;
+document.getElementById("time").innerText=timeLeft;
+if(timeLeft<=0){
+clearInterval(timer);
+alert("انتهى الوقت ⏰");
+}
+},1000);
+}
+
+function resetTimer(){
+clearInterval(timer);
+timeLeft=30;
+document.getElementById("time").innerText=30;
+}
+
+function newQuestion(){
+loadQuestion();
+}
+
+function announceWinner(){
+let winner=score1>score2?"فريق 1":"فريق 2";
+alert("الفائز هو "+winner+" 🎉");
+}
+
+loadQuestion();
+</script>
+
+
+</body>
+</html>
