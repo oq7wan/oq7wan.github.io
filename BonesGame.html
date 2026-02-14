@@ -397,7 +397,7 @@ document.getElementById("score2").innerText=score2;
 }
 
 function startTimer(){
-timeLeft=30;
+timeLeft=15;
 timer=setInterval(()=>{
 timeLeft--;
 document.getElementById("time").innerText=timeLeft;
@@ -410,8 +410,8 @@ alert("انتهى الوقت ⏰");
 
 function resetTimer(){
 clearInterval(timer);
-timeLeft=30;
-document.getElementById("time").innerText=30;
+timeLeft=15;
+document.getElementById("time").innerText=15;
 }
 
 function newQuestion(){
