@@ -968,6 +968,15 @@ function scrollToTop() {
       behavior: 'smooth'
     });
   }
+
+const startBtn = document.getElementById("startGameBtn");
+const gameContainer = document.getElementById("gameContainer");
+
+startBtn.addEventListener("click", () => {
+    gameContainer.style.display = "block"; // يظهر اللعبة
+    startBtn.style.display = "none";       // يخفي زر البداية
+    loadQuestion();                         // يبدأ بسحب أول سؤال
+});  
   
 </script>
 
