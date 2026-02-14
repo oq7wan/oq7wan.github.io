@@ -930,6 +930,56 @@ function scrollToTop() {
     });
   }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.section-card');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    cards.forEach(card => observer.observe(card));
+  });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hoverWrappers = document.querySelectorAll('.image-hover-wrapper');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const wrapper = entry.target;
+          const overlay = wrapper.querySelector('.hover-text');
+
+          wrapper.classList.add('scroll-visible');
+
+          // Remove any previous fade-out
+          overlay.classList.remove('fade-out');
+
+          // Start timer to fade out
+          setTimeout(() => {
+            overlay.classList.add('fade-out');
+          }, 1000); // 1000ms = 1 seconds
+
+          observer.unobserve(wrapper); // optional: animate once
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    hoverWrappers.forEach(wrapper => {
+      observer.observe(wrapper);
+    });
+  });
+
 const nav = document.querySelector('nav');
   const hamburger = document.querySelector('.hamburger');
 
