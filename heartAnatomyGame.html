@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> لعبة مراجعة تركيب القلب </title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/icon.png" type="image/png">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif; 
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      padding-top: 160px; /* 100px header + ~60px nav spacing */
+      background-color: #f4f4f9;
+      overflow-x: hidden;
+    }
+
+header {
+  background-color: #006400;
+  color: white;
+  padding: 1em 0;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 100px; /* adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  background-color: #228B22;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0.5em;
+  position: fixed;
+  top: 100px; /* match header height */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+
+
+    nav a,
+.nav-current {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: #006400;
+}
+
+.nav-current {
+  background-color: #006400;
+  color: #ccc;
+  cursor: default;
+}
+
+.section-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;                   /* smaller space between image/text */
+  padding: 10px 14px;          /* reduce vertical padding */
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 20px auto;           /* reduce vertical margin between cards */
+}
+
+
+
+/* Image side */
+.image-side {
+  padding : 10px;
+  flex: 1;
+  text-align: center;
+}
+
+.image-side img {
+  width: auto;
+  height: 150px; /* force all section images to the same height */
+  object-fit: contain; /* maintain image aspect ratio */
+  border-radius: 12px;
+}
+
+
+
+
+.image-side img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Text side */
+.text-side {
+  flex: 1;
+  direction: rtl;
+  text-align: right;
+  padding: 12px;
+  background: linear-gradient(to top left, #f0fff0, #ffffff);
+  border-radius: 12px;
+  border-right: 5px solid #228B22;
+  box-shadow: inset 0 0 10px rgba(0, 100, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.text-side:hover {
+  transform: scale(1.02);
+  box-shadow: inset 0 0 15px rgba(0, 128, 0, 0.1);
+}
+
+.text-side h2 {
+  color: #006400;
+  font-size: 1.3em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.text-side p {
+  font-size: 1.1em;
+  color: #333;
+  line-height: 1.7;
+}
+
+
+/* Initial hidden state */
+.image-text-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Visible state */
+.image-text-wrapper.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Container for image and overlay */
+.image-hover-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* The image itself */
+.image-hover-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+/* Initially hidden */
+/* Initial state: hidden */
+
+
+/* Text overlay styles */
+.hover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  background-color: rgba(0, 100, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+/* Show on hover (desktop) */
+.image-hover-wrapper:hover .hover-text {
+  opacity: 1;
+}
+
+/* Show when scrolled into view */
+.image-hover-wrapper.scroll-visible .hover-text {
+  opacity: 1;
+}
+
+/* Hide after timeout */
+.image-hover-wrapper .hover-text.fade-out {
+  opacity: 0;
+}
+
+
+
+
+
+
+/* Hover effect: zoom image and show text */
+.image-hover-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.image-hover-wrapper:hover .hover-text {
+  opacity: 1;
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+    main {
+      padding: 2em;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #006400;
+      text-align: center;
+    }
+
+    .quiz-button {
+    margin-top: 1em;
+    padding: 0.75em 1.5em;
+    font-size: 1em;
+    background-color: #006400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 400px;
+    font-family: 'Tajawal', sans-serif;
+   }
+
+    .quiz-button:hover {
+      background-color: #004d00;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .text-side {
+    text-align: right;
+  }
+
+  header, nav, main {
+    padding: 1em;
+    text-align: center;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .quiz-button {
+    width: 90%;
+    font-size: 1.1em;
+  }
+}
+
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .hover-text {
+    font-size: 18px;
+  }
+}
+
+
+/* Hamburger styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: content-box;
+  margin-left: 10px;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+}
+
+/* Show hamburger only on small screens */
+@media (max-width: 768px) {
+  nav {
+    position: fixed; /* keep sticky/fixed if you want */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5em 1em;
+    height: auto;
+    gap: 0;
+  }
+
+  nav a, nav .nav-current {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Hide links by default on mobile */
+  nav:not(.open) a,
+  nav:not(.open) .nav-current {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+.site-footer {
+  background-color: #006400;
+  color: white;
+  text-align: center;
+  padding: 30px 10px;
+  font-size: 14px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo img.dna-icon {
+  width: 60px;
+  height: 60px;
+  animation: rotateDNA 5s linear infinite;
+}
+
+/* DNA rotation animation */
+@keyframes rotateDNA {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Scroll-to-top button */
+.scroll-top {
+  margin-top: 10px;
+  background-color: #228B22;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-top:hover {
+  background-color: #004d00;
+}
+
+.header-logo-text {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo {
+  width: 60px; /* يمكنك التعديل حسب حجم الصورة */
+  height: auto;
+  border-radius: 50%; /* اختياري - يجعل الصورة دائرية */
+}
+
+/* ===== GAME CARD ===== */
+.container{
+  max-width:1000px;
+  margin:40px auto;
+  background:white;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  text-align:center;
+}
+
+.quiz-button{
+  padding:12px 24px;
+  background:#006400;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+  margin:10px;
+  transition:0.3s;
+}
+
+.quiz-button:hover{
+  background:#004d00;
+}
+
+.scoreboard{
+  display:flex;
+  justify-content:space-around;
+  background:#f0fff0;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+  font-size:20px;
+}
+
+.timer{
+  font-size:20px;
+  font-weight:bold;
+  color:#b22222;
+  margin-bottom:15px;
+}
+
+#choices button{
+  display:block;
+  width:100%;
+  margin:10px 0;
+  padding:10px;
+  background:#228B22;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+}
+
+#choices button:hover{
+  background:#006400;
+}
+
+#result{
+  margin-top:15px;
+  font-size:20px;
+  font-weight:bold;
+  color:#006400;
+}
+
+.hidden{display:none}    
+  
+</style>
+
+</head>
+<body>
+  <header>
+  <div class="header-logo-text">
+    <img src="images/icon.png" alt="شعار أقحوان" class="header-logo">
+    <h1> أُقْحُوان </h1>
+  </div>
+</header>
+
+ <nav>
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <span class="nav-current"> لعبة الصندوق الغامض - تركيب القلب  </span>
+  <a href="index.html" target="_blank">الرئيسية</a>
+  <a href="12th grade Interface.html"> الصف الثاني عشر العلمي</a>
+  <a href="12th Lit Interface.html"> الصف الثاني عشر الأدبي </a>
+  <a href="11th grade Interface.html">الصف الحادي عشر العلمي </a>
+  <a href="10th grade Interface.html"> الصف العاشر </a>
+</nav>
+
+<div class="container">
+
+<div id="startScreen">
+<h2>مراجعة تركيب القلب</h2>
+<button class="quiz-button" onclick="startGame()">ابدأ اللعبة</button>
+</div>
+
+<div id="gameScreen" class="hidden">
+
+<div class="scoreboard">
+<div>الفريق 1: <span id="score1">0</span></div>
+<div>الفريق 2: <span id="score2">0</span></div>
+</div>
+
+<div class="timer">⏳ الوقت المتبقي: <span id="time">15</span></div>
+
+<h2 id="question"></h2>
+<div id="choices"></div>
+
+<div id="decision" class="hidden">
+<p>🎁 تحتفظوا بالصندوق ولا تمرروه ؟</p>
+<button class="quiz-button" onclick="keepBox()">نحتفظ</button>
+<button class="quiz-button" onclick="passBox()">نمرر</button>
+</div>
+
+<div id="result"></div>
+<button class="quiz-button" onclick="nextQuestion()">السؤال التالي</button>
+
+</div>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.section-card');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    cards.forEach(card => observer.observe(card));
+  });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hoverWrappers = document.querySelectorAll('.image-hover-wrapper');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const wrapper = entry.target;
+          const overlay = wrapper.querySelector('.hover-text');
+
+          wrapper.classList.add('scroll-visible');
+
+          // Remove any previous fade-out
+          overlay.classList.remove('fade-out');
+
+          // Start timer to fade out
+          setTimeout(() => {
+            overlay.classList.add('fade-out');
+          }, 1000); // 1000ms = 1 seconds
+
+          observer.unobserve(wrapper); // optional: animate once
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    hoverWrappers.forEach(wrapper => {
+      observer.observe(wrapper);
+    });
+  });
+
+const nav = document.querySelector('nav');
+  const hamburger = document.querySelector('.hamburger');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+
+    // Update aria-expanded for accessibility
+    const expanded = hamburger.classList.contains('active');
+    hamburger.setAttribute('aria-expanded', expanded);
+  });
+
+function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+
+let currentTeam=1;
+let score1=0,score2=0;
+let currentQuestionIndex=0;
+let mysteryValue=0;
+let timerInterval;
+let timeLeft=15;
+
+let questions=[ /* نفس 20 سؤال السابقة */ 
+{question:"ما عدد حجرات القلب؟",choices:["1","2","4","6"],correct:1},
+{question:"ما نوع الدم في البطين الأيمن؟",choices:["فقير بالأكسجين","غني بالأكسجين","مختلط","نصفه فقير و النصف الثاني غني بالأكسجين"],correct:0},
+{question:"أي الأوعية التالية تصب دماً غنياً بالأكسجين في القلب ؟",choices:["الشرايين الرئوية","الأوردة الرئوية","الوريد الأجوف العلوي","الشريان الأبهر"],correct:1},
+{question:"أي الأوعية الدموية التالية تتصل بالبطين الأيسر ؟",choices:["الشرايين الرئوية","الشريان الأبهر","الوريد الأجوف السفلي","الوريد الأجوف العلوي"],correct:1},
+{question:"أي الأوعية الدموية الآتية تحمل دماً غنياً بالأكسجين ؟",choices:["الوريد الأجوف العلوي","الوريد الأجوف السفلي","الشريان الرئوي","الشريان الأبهر"],correct:1},
+{question:"أي الأوعية الدموية الآتية تحمل الدم بعيداً عن القلب ؟",choices:["الوريد الأجوف العلوي","الشريان الرئوي","الوريد الأجوف السفلي","الوريد الرئوي الأيمن"],correct:1},
+{question:"الخلية أحادية المجموعة الكروموسومية عند الانسان تحتوي:",choices:["23","46","47","82"],correct:0},
+{question:"العبور الوراثي يزيد:",choices:["الطول","التنوع الوراثي","الانقسام","الحجم"],correct:1},
+{question:"في الذكر ينتج من انقسام خلية منوية أولية واحدة:",choices:["أربعة حيوانات منوية","بويضة","حيوان منوي و أجسام قطبية","حيوانين منويين"],correct:0},
+{question:"في الأنثى ينتج من انقسام خلية بيضية أولية واحدة:",choices:["بويضة وأجسام قطبية","أربعة بويضات","بويضتان","حيوان منوي"],correct:0}
+];
+
+/* ===== RANDOM SHUFFLE ===== */
+function shuffle(array){
+for(let i=array.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[array[i],array[j]]=[array[j],array[i]];
+}
+}
+
+function startGame(){
+shuffle(questions);
+document.getElementById("startScreen").classList.add("hidden");
+document.getElementById("gameScreen").classList.remove("hidden");
+loadQuestion();
+}
+
+function startTimer(){
+timeLeft=15;
+document.getElementById("time").innerText=timeLeft;
+clearInterval(timerInterval);
+timerInterval=setInterval(()=>{
+timeLeft--;
+document.getElementById("time").innerText=timeLeft;
+if(timeLeft<=0){
+clearInterval(timerInterval);
+applyWrongPenalty();
+}
+},1000);
+}
+
+function loadQuestion(){
+let q=questions[currentQuestionIndex];
+document.getElementById("question").innerText="دور الفريق "+currentTeam+": "+q.question;
+
+let choicesDiv=document.getElementById("choices");
+choicesDiv.innerHTML="";
+q.choices.forEach((choice,index)=>{
+let btn=document.createElement("button");
+btn.innerText=choice;
+btn.onclick=()=>checkAnswer(index);
+choicesDiv.appendChild(btn);
+});
+
+document.getElementById("decision").classList.add("hidden");
+document.getElementById("result").innerText="";
+startTimer();
+}
+
+function checkAnswer(index){
+clearInterval(timerInterval);
+if(index===questions[currentQuestionIndex].correct){
+generateMystery();
+document.getElementById("decision").classList.remove("hidden");
+}else{
+applyWrongPenalty();
+}
+}
+
+function applyWrongPenalty(){
+if(currentTeam===1){score1-=50;document.getElementById("score1").innerText=score1;}
+else{score2-=50;document.getElementById("score2").innerText=score2;}
+document.getElementById("result").innerText="❌ خسارة -50 نقطة";
+switchTeam();
+}
+
+function generateMystery(){
+let values=[100,300,500,1000,-100,-500,-1000];
+mysteryValue=values[Math.floor(Math.random()*values.length)];
+}
+
+function keepBox(){applyScore(currentTeam);}
+function passBox(){applyScore(currentTeam===1?2:1);}
+
+function applyScore(team){
+if(team===1){score1+=mysteryValue;document.getElementById("score1").innerText=score1;}
+else{score2+=mysteryValue;document.getElementById("score2").innerText=score2;}
+document.getElementById("result").innerText="🎁 نتيجة الصندوق: "+mysteryValue;
+switchTeam();
+}
+
+function switchTeam(){currentTeam=currentTeam===1?2:1;}
+
+function nextQuestion(){
+currentQuestionIndex++;
+if(currentQuestionIndex>=questions.length){
+alert("انتهت اللعبة!");
+currentQuestionIndex=0;
+shuffle(questions);
+}
+loadQuestion();
+}
+  
+
+</script>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="images/icon.png" alt="DNA Icon" class="dna-icon">
+    </div>
+     <div class="footer-text">
+      <p> جميع الحقوق محفوظة © أُقْحُوان 2026 </p>
+    </div>
+    <button class="scroll-top" onclick="scrollToTop()">↑ أعلى</button>
+  </div>
+</footer>
+  
+</body>
+  
+</html>
