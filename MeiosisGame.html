@@ -625,7 +625,7 @@ let score1=0,score2=0;
 let currentQuestionIndex=0;
 let mysteryValue=0;
 let timerInterval;
-let timeLeft=15;
+let timeLeft=30;
 
 let questions=[ /* نفس 20 سؤال السابقة */ 
 {question:"كم عدد الكروموسومات في الغاميت البشري؟",choices:["46","23","92","44"],correct:1},
@@ -656,7 +656,7 @@ loadQuestion();
 }
 
 function startTimer(){
-timeLeft=20;
+timeLeft=30;
 document.getElementById("time").innerText=timeLeft;
 clearInterval(timerInterval);
 timerInterval=setInterval(()=>{
