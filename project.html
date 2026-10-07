@@ -12,10 +12,10 @@
   --gold:#c9a227;--wood:#76553a;--dark:#10271b;
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Tajawal,Arial,sans-serif;background:var(--dark);overflow:hidden}
+html,body{margin:0;width:100%;height:100%;font-family:Tajawal,Arial,sans-serif;background:var(--dark)}
 button{font:inherit;cursor:pointer}
 #app{position:fixed;inset:0;overflow:hidden;background:linear-gradient(#b7d8c5 0 58%,#c9ba9d 58% 100%)}
-#room{position:absolute;inset:0;perspective:900px;perspective-origin:50% 48%;transition:all 0.35s ease;will-change:transform, opacity}
+#room{position:absolute;inset:0;perspective:900px;perspective-origin:50% 48%}
 .floor{position:absolute;left:-20%;width:140%;height:70%;top:53%;
  background:repeating-linear-gradient(90deg,#bbaa8a 0 90px,#b3a17f 90px 92px);
  transform:rotateX(67deg);transform-origin:top center;box-shadow:inset 0 30px 60px #65563d55}
@@ -27,12 +27,12 @@ button{font:inherit;cursor:pointer}
  background:linear-gradient(90deg,#18572f,#4c9462,#18572f);box-shadow:0 8px 30px #0002}
 .p1{left:5%}.p2{right:5%}
 .flag{position:absolute;top:16%;left:50%;transform:translateX(-50%);font-size:52px;filter:drop-shadow(0 5px 8px #0003)}
-
 .header{position:fixed;z-index:20;top:16px;right:16px;left:16px;display:flex;
- justify-content:center;align-items:center;pointer-events:none}
-.welcome-banner{background:#fffffff2;border:1px solid #dce8dd;border-radius:16px;padding:9px 20px;
- color:#174b29;box-shadow:0 7px 25px #0002;font-weight:800;font-size:16px;text-align:center}
-
+ justify-content:space-between;align-items:center;pointer-events:none}
+.brand,.roomname{background:#fffffff2;border:1px solid #dce8dd;border-radius:16px;padding:9px 15px;
+ color:#174b29;box-shadow:0 7px 25px #0002;font-weight:800}
+.brand{font-size:18px}.brand span{font-size:25px;vertical-align:middle;margin-left:7px}
+.roomname{font-size:14px}
 .hotspot{position:absolute;z-index:8;cursor:pointer;transition:.25s;transform:translate(-50%,-50%);
  filter:drop-shadow(0 5px 8px #0004)}
 .hotspot:hover{transform:translate(-50%,-50%) scale(1.07)}
@@ -84,7 +84,7 @@ video{width:100%;max-height:60vh;background:#111;border-radius:15px}
 @media(max-width:700px){
  .art{width:125px;height:155px;border-width:9px}.video{width:190px;height:125px}
  .gallery{grid-template-columns:1fr}.cards{grid-template-columns:1fr}
- .help{display:none}.welcome-banner{font-size:13px;padding:7px 14px}
+ .help{display:none}.brand{font-size:14px}.roomname{font-size:11px}
  .start h1{font-size:28px}.startbox{padding:28px 20px}
  .art .icon{font-size:38px}.art b{font-size:13px}
 }
@@ -116,6 +116,7 @@ video{width:100%;max-height:60vh;background:#111;border-radius:15px}
 .video-thumb .vplay{font-size:34px}
 @media(max-width:900px){.students-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.students-grid{grid-template-columns:repeat(2,1fr)}.work-grid{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -132,10 +133,11 @@ video{width:100%;max-height:60vh;background:#111;border-radius:15px}
 </div>
 
 <div class="header">
-  <div class="welcome-banner">أهلاً وسهلاً بكم في المعرض الافتراضي</div>
+  <div class="brand"><span>🌼</span> أُقحوان</div>
+  <div class="roomname" id="roomName">المدخل</div>
 </div>
 
-<div class="help">اسحبي الشاشة يميناً أو يساراً للتنقل بين القاعات • الأسهم للتنقل</div>
+<div class="help">اختاري قاعة من الأسفل أو اضغطي على اللوحات • الأسهم للتنقل</div>
 <div class="nav" id="nav"></div>
 
 <div class="start" id="start">
@@ -143,7 +145,7 @@ video{width:100%;max-height:60vh;background:#111;border-radius:15px}
     <div class="logo">🌼</div>
     <div class="school">مشروع المواطنة البيئية</div>
     <h1>معرض أقحوان الافتراضي</h1>
-    <h2>مدرسة عقربة الثانوية للبنات</h2>
+    <h2>مدرسة ____________________</h2>
     <p>
       أهلًا بكِ في معرضنا الإلكتروني.<br>
       تجوّلي بين القاعات، شاهدي صور الطالبات والأنشطة،
@@ -192,14 +194,22 @@ const rooms=[
  {name:"الخاتمة",objs:[
    {type:"art",x:50,y:40,title:"كلمة شكر",id:"thanks",icon:"🌼"},
    {type:"art",x:75,y:40,title:"موقع أقحوان",id:"website",icon:"🔗"}
- }]}
+ ]}
 ];
 
+
+// ================================================================
+// بيانات الطالبات — عدّلي الاسم والأعمال هنا فقط.
+// لكل طالبة مجلد مستقل داخل media/students/student01 ... student34
+// ================================================================
 const students = Array.from({length:34}, (_,i) => ({
   id: `student${String(i+1).padStart(2,"0")}`,
   name: `الطالبة ${String(i+1).padStart(2,"0")}`,
-  bio: "طالبة مشاركة في مشروع المواطنة البيئية والمبادرات البيئية بالمدرسة.",
-  photos: [], videos: [], brochures: [], designs: []
+  bio: "يمكن إضافة نبذة قصيرة عن الطالبة ودورها في مشروع المواطنة البيئية هنا.",
+  photos: [],      // مثال: ["photo1.jpg","photo2.jpg"]
+  videos: [],      // مثال: [{file:"video1.mp4",title:"فيديو توعوي"}]
+  brochures: [],   // مثال: [{file:"brochure.pdf",title:"مطوية إعادة التدوير"}]
+  designs: []      // مثال: [{file:"poster.jpg",title:"ملصق بيئي"}]
 }));
 
 function studentFolder(s){return `media/students/${s.id}/`;}
@@ -233,7 +243,7 @@ function studentsGallery(){
    <div class="student-count">34 طالبة مشاركة</div>
  </div>
  <div id="studentsGrid">${studentCards()}</div>
- <div class="note">لإضافة أعمال طالبة: ضعي الملفات داخل مجلدها ثم أضيفي أسماء الملفات في بيانات الطالبة.</div>`;
+ <div class="note">لإضافة أعمال طالبة: ضعي الملفات داخل مجلدها ثم أضيفي أسماء الملفات في بيانات الطالبة في بداية قسم JavaScript.</div>`;
 }
 
 function filterStudents(value){
@@ -295,11 +305,12 @@ function studentsGalleryBack(){
 }
 
 let room=0,started=false;
-const roomEl=document.getElementById("room");
 const objects=document.getElementById("objects");
+const nameEl=document.getElementById("roomName");
 const nav=document.getElementById("nav");
 
 function render(){
+ nameEl.textContent=rooms[room].name;
  objects.innerHTML="";
  rooms[room].objs.forEach(o=>{
    const el=document.createElement("div");
@@ -318,41 +329,7 @@ function render(){
    `<button class="${i===room?'active':''}" onclick="go(${i})">${i+1}. ${r.name}</button>`
  ).join("");
 }
-
-function go(i){
- const nextRoom = (i + rooms.length) % rooms.length;
- roomEl.style.opacity = "0";
- roomEl.style.transform = "scale(0.97)";
- 
- setTimeout(()=>{
-   room = nextRoom;
-   render();
-   roomEl.style.opacity = "1";
-   roomEl.style.transform = "scale(1)";
- }, 200);
-}
-
-// التمرير والسحب السلس (Swipe Handlers)
-let touchStartX = 0;
-const appEl = document.getElementById("app");
-
-appEl.addEventListener("touchstart", e => {
-  if(!started) return;
-  touchStartX = e.touches[0].clientX;
-}, {passive: true});
-
-appEl.addEventListener("touchend", e => {
-  if(!started) return;
-  let touchEndX = e.changedTouches[0].clientX;
-  let diff = touchEndX - touchStartX;
-  if(Math.abs(diff) > 40){
-    if(diff > 0){
-      go(room - 1); // سحب لليسار للانتقال للسابق
-    } else {
-      go(room + 1); // سحب لليمين للانتقال للتالي
-    }
-  }
-}, {passive: true});
+function go(i){room=(i+rooms.length)%rooms.length;render()}
 
 function galleryHTML(){
  return `
@@ -365,7 +342,7 @@ function galleryHTML(){
    <figure onclick="openLightbox('media/photo5.jpg')"><img src="media/photo5.jpg" alt="نشاط 5"><figcaption>أعمال الطالبات</figcaption></figure>
    <figure onclick="openLightbox('media/photo6.jpg')"><img src="media/photo6.jpg" alt="نشاط 6"><figcaption>من المعرض</figcaption></figure>
  </div>
- <div class="note">ضعي الصور الحقيقية داخل مجلد <b>media</b> بالأسماء photo1.jpg إلى photo6.jpg.</div>`;
+ <div class="note">ضعي الصور الحقيقية داخل مجلد <b>media</b> بالأسماء photo1.jpg إلى photo6.jpg. عند الضغط على أي صورة ستظهر بحجم كبير.</div>`;
 }
 
 function openPanel(id,title){
@@ -400,19 +377,20 @@ function openPanel(id,title){
  }
 
  const content={
-  intro:"مشروع 'الشباب يصنع الأثر' ضمن مبادرة المواطنة البيئية يهدف إلى نشر الوعي البيئي وتحسين البيئة المدرسية وتعزيز السلوك المستدام.",
-  issue:"تحديد التحديات البيئية المدرسية وعرض المبادرات والأنشطة المقترحة لمعالجتها بأسلوب علمي وعملي.",
-  p1:"تفاصيل النشاط الأول الميداني والتوعوي الذي نفذته الطالبات مع الشواهد والصور.",
-  p2:"تفاصيل النشاط الثاني، الأدوات والمواد المستخدمة، ودور الطالبات في التنفيذ.",
-  p3:"تفاصيل النشاط الثالث والنتائج المتحققة على مستوى المدرسة والمجتمع المحلي.",
-  students:"معرض أعمال وإبداعات الطالبات المشاركات في المبادرة البيئية.",
-  message:"رسالة طالبات المدرسة للمجتمع للارتقاء بالسلوك البيئي والحفاظ على الطبيعة.",
-  impact:"أبرز الإنجازات والأثر البيئي الملموس الذي أحدثه المشروع داخل المدرسة.",
-  change:"التغيرات والتطورات الإيجابية التي طرأت على البيئة المدرسية قبل وبعد المبادرة.",
-  thanks:"كل الشكر والتقدير لكل من ساهم في إنجاح هذا العمل البيئي المتميز من معلمات وطالبات وإدارة مدرسة."
+  intro:"مساحة تعريفية بالمشروع: الفكرة، الرؤية، الأهداف، ودور المدرسة والطالبات في بناء سلوك بيئي مسؤول.",
+  issue:"هنا نعرض القضية البيئية، أسبابها وآثارها، ولماذا تستحق أن نتحرك من أجلها، مع إضافة الصور والبيانات الخاصة بالمشروع.",
+  p1:"يمكن وضع تفاصيل النشاط الأول، خطوات التنفيذ، الفئة المستهدفة، الصور والنتائج.",
+  p2:"يمكن وضع تفاصيل النشاط الثاني وشواهده والمواد المستخدمة والنتائج.",
+  p3:"يمكن وضع تفاصيل النشاط الثالث وشواهده وأثره في المدرسة والمجتمع.",
+  students:"مساحة مخصصة لأعمال الطالبات: الملصقات، الرسومات، النماذج، المبادرات والأفكار الإبداعية.",
+  message:"رسالة الطالبات للمجتمع: كلماتهن، توصياتهن، وأفكارهن للمستقبل.",
+  impact:"هنا توضع الإنجازات والنتائج والشواهد والأثر الذي أحدثه المشروع، مع أرقام أو صور قبل/بعد إن وجدت.",
+  change:"ما الذي تغير في المدرسة؟ وما السلوكيات أو الممارسات البيئية التي تحسنت؟ يمكن إضافة صور مقارنة قبل وبعد.",
+  thanks:"شكرًا لكل طالبة ومعلمة وأسرة وكل من ساهم في إنجاح المشروع. معًا نصنع أثرًا أجمل لمدرستنا وبيئتنا."
  }[id] || "محتوى قابل للتعديل.";
 
- c.innerHTML=`<h2>🌿 ${title}</h2><p>${content}</p>`;
+ c.innerHTML=`<h2>🌿 ${title}</h2><p>${content}</p>
+ <div class="note">هذه المنطقة مصممة لإضافة النصوص والصور والروابط والملفات الخاصة بالمشروع.</div>`;
 }
 
 function closePanel(){document.getElementById("panel").style.display="none"}
