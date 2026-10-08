@@ -202,16 +202,316 @@ const rooms=[
 // بيانات الطالبات — عدّلي الاسم والأعمال هنا فقط.
 // لكل طالبة مجلد مستقل داخل media/students/student01 ... student34
 // ================================================================
-const students = Array.from({length:34}, (_,i) => ({
-  id: `student${String(i+1).padStart(2,"0")}`,
-  name: `الطالبة ${String(i+1).padStart(2,"0")}`,
-  bio: "يمكن إضافة نبذة قصيرة عن الطالبة ودورها في مشروع المواطنة البيئية هنا.",
-  photos: [],      // مثال: ["photo1.jpg","photo2.jpg"]
-  videos: [],      // مثال: [{file:"video1.mp4",title:"فيديو توعوي"}]
-  brochures: [],   // مثال: [{file:"brochure.pdf",title:"مطوية إعادة التدوير"}]
-  designs: []      // مثال: [{file:"poster.jpg",title:"ملصق بيئي"}]
-}));
 
+const students = [
+    {
+        id: "student01",
+        name: "إسراء عبد الله علي الزايد",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student02",
+        name: "اية شادي يوسف بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student03",
+        name: "ايناس فوزان شكري بني منيه",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student04",
+        name: "بيان كمال أحمد بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student05",
+        name: "بيلسان شاكر كايد بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student06",
+        name: "بيلسان طراد باسم بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student07",
+        name: "تالا محمد رزق خليل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student08",
+        name: "تيماء مجاهد محمد بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student09",
+        name: "حلا نضال عبد الغني بني منيه",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student10",
+        name: "ديما فاروق عادل بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student11",
+        name: "راما غسان عناد بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student12",
+        name: "رغد معتصم صالح بني منيه",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student13",
+        name: "رهف يوسف عبد الجبار بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student14",
+        name: "روان بسام جمال عودة",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student15",
+        name: "ريم طارق خالد زياده",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student16",
+        name: "ريماس محفوظ نظمي شهاب",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student17",
+        name: "زينه رشيد مشهور بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student18",
+        name: "سجى علاء زيد بني منيه",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student19",
+        name: "سجى محمد اسعيد بني جامع",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student20",
+        name: "سنديا ابراهيم خير بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student21",
+        name: "سيلين يوسف عبد الرحيم بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student22",
+        name: "شهد اشرف عادل بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student23",
+        name: "فاطمة يحيى فتح الله بني منيه",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student24",
+        name: "كندة بركات جودت بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student25",
+        name: "ليالي بلال محمد بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student26",
+        name: "ليان رياض جمال أبو شهاب",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student27",
+        name: "ليان ضرغام خير بني فضل",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student28",
+        name: "ليان علاء فضيل بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student29",
+        name: "لين رياض جمال أبو شهاب",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student30",
+        name: "ملاك فتحي حسن بني جامع",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student31",
+        name: "ملاك لؤي يوسف بني جابر",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student32",
+        name: "ميرا خالد محمود ابو لحية",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student33",
+        name: "نور اسامه حسين بني جامع",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    },
+    {
+        id: "student34",
+        name: "ياسمين غسان محمد سليمان",
+        bio: "مشاركة مميزة في مشروع المواطنة البيئية 🌿",
+        photos: [],
+        videos: [],
+        brochures: [],
+        designs: []
+    }
+];
+  
 function studentFolder(s){return `media/students/${s.id}/`;}
 
 function studentStats(s){
